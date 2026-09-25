@@ -1,0 +1,300 @@
+[
+ {
+  "dataset": "benzene",
+  "split_method": "stratified_shuffle_seed42",
+  "n_graphs": 12000,
+  "n_features": 14,
+  "n_classes": 2,
+  "class_balance": {
+   "0": 5999,
+   "1": 6001
+  },
+  "nodes_mean": 20.58275,
+  "nodes_min": 4,
+  "nodes_max": 25,
+  "edges_mean": 43.6535,
+  "gt_positive_total": 6001,
+  "n_train": 8399,
+  "n_val": 1201,
+  "n_test": 2400,
+  "train_class_balance": {
+   "0": 4199,
+   "1": 4200
+  },
+  "train_gt_positive": 4200,
+  "val_class_balance": {
+   "0": 600,
+   "1": 601
+  },
+  "val_gt_positive": 601,
+  "test_class_balance": {
+   "0": 1200,
+   "1": 1200
+  },
+  "test_gt_positive": 1200,
+  "test_gt_first_size_mean": 6.0,
+  "test_gt_n_exp_mean": 1.695,
+  "cache": "benzene.pt",
+  "dataset_args": {
+   "class": "graphxai.datasets.Benzene",
+   "split_sizes": [
+    0.7,
+    0.2,
+    0.1
+   ],
+   "seed": 42
+  },
+  "examples": [
+   {
+    "graph_index": 5,
+    "n_nodes": 18,
+    "y": 1,
+    "n_gt_explanations": 1,
+    "gt_nodes_first": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6
+    ],
+    "graph_hash": "73a24cf988bdf2e2"
+   },
+   {
+    "graph_index": 31,
+    "n_nodes": 17,
+    "y": 1,
+    "n_gt_explanations": 1,
+    "gt_nodes_first": [
+     4,
+     5,
+     6,
+     7,
+     8,
+     9
+    ],
+    "graph_hash": "e7a5cbe2e7bfe07e"
+   }
+  ]
+ },
+ {
+  "dataset": "alkane_carbonyl",
+  "split_method": "stratified_shuffle_seed42",
+  "n_graphs": 1125,
+  "n_features": 14,
+  "n_classes": 2,
+  "class_balance": {
+   "0": 750,
+   "1": 375
+  },
+  "nodes_mean": 21.48177777777778,
+  "nodes_min": 6,
+  "nodes_max": 25,
+  "edges_mean": 45.562666666666665,
+  "gt_positive_total": 375,
+  "n_train": 787,
+  "n_val": 113,
+  "n_test": 225,
+  "train_class_balance": {
+   "0": 525,
+   "1": 262
+  },
+  "train_gt_positive": 262,
+  "val_class_balance": {
+   "0": 75,
+   "1": 38
+  },
+  "val_gt_positive": 38,
+  "test_class_balance": {
+   "0": 150,
+   "1": 75
+  },
+  "test_gt_positive": 75,
+  "test_gt_first_size_mean": 3.0,
+  "test_gt_n_exp_mean": 5.48,
+  "cache": "alkane_carbonyl.pt",
+  "dataset_args": {
+   "class": "graphxai.datasets.AlkaneCarbonyl",
+   "split_sizes": [
+    0.7,
+    0.2,
+    0.1
+   ],
+   "seed": 42,
+   "downsample": true,
+   "downsample_seed": 42
+  },
+  "examples": [
+   {
+    "graph_index": 752,
+    "n_nodes": 23,
+    "y": 1,
+    "n_gt_explanations": 1,
+    "gt_nodes_first": [
+     12,
+     13,
+     21
+    ],
+    "graph_hash": "6ddf380e80ea02ca"
+   },
+   {
+    "graph_index": 754,
+    "n_nodes": 23,
+    "y": 1,
+    "n_gt_explanations": 1,
+    "gt_nodes_first": [
+     2,
+     3,
+     11
+    ],
+    "graph_hash": "6ec5a3c920c8ef9a"
+   }
+  ]
+ },
+ {
+  "dataset": "fluoride_carbonyl",
+  "split_method": "stratified_shuffle_seed42",
+  "n_graphs": 8671,
+  "n_features": 14,
+  "n_classes": 2,
+  "class_balance": {
+   "0": 7144,
+   "1": 1527
+  },
+  "nodes_mean": 21.35832083958021,
+  "nodes_min": 5,
+  "nodes_max": 25,
+  "edges_mean": 45.36593241840618,
+  "gt_positive_total": 1527,
+  "n_train": 6069,
+  "n_val": 868,
+  "n_test": 1734,
+  "train_class_balance": {
+   "0": 5000,
+   "1": 1069
+  },
+  "train_gt_positive": 1069,
+  "val_class_balance": {
+   "0": 715,
+   "1": 153
+  },
+  "val_gt_positive": 153,
+  "test_class_balance": {
+   "0": 1429,
+   "1": 305
+  },
+  "test_gt_positive": 305,
+  "test_gt_first_size_mean": 5.0,
+  "test_gt_n_exp_mean": 5.862295081967213,
+  "cache": "fluoride_carbonyl.pt",
+  "dataset_args": {
+   "class": "graphxai.datasets.FluorideCarbonyl",
+   "split_sizes": [
+    0.7,
+    0.2,
+    0.1
+   ],
+   "seed": 42
+  },
+  "examples": [
+   {
+    "graph_index": 48,
+    "n_nodes": 20,
+    "y": 1,
+    "n_gt_explanations": 3,
+    "gt_nodes_first": [
+     1,
+     2,
+     16,
+     17,
+     18
+    ],
+    "graph_hash": "ee6dce1aed4c072e"
+   },
+   {
+    "graph_index": 117,
+    "n_nodes": 25,
+    "y": 1,
+    "n_gt_explanations": 3,
+    "gt_nodes_first": [
+     8,
+     9,
+     10,
+     11,
+     12
+    ],
+    "graph_hash": "3b8fe73bc6808a21"
+   }
+  ]
+ },
+ {
+  "dataset": "mutagenicity",
+  "split_method": "stratified_shuffle_seed42",
+  "n_graphs": 1768,
+  "n_features": 14,
+  "n_classes": 2,
+  "class_balance": {
+   "0": 1128,
+   "1": 640
+  },
+  "nodes_mean": 29.149886877828056,
+  "nodes_min": 4,
+  "nodes_max": 103,
+  "edges_mean": 60.83031674208145,
+  "gt_positive_total": 640,
+  "n_train": 1237,
+  "n_val": 177,
+  "n_test": 354,
+  "train_class_balance": {
+   "0": 789,
+   "1": 448
+  },
+  "train_gt_positive": 448,
+  "val_class_balance": {
+   "0": 113,
+   "1": 64
+  },
+  "val_gt_positive": 64,
+  "test_class_balance": {
+   "0": 226,
+   "1": 128
+  },
+  "test_gt_positive": 128,
+  "test_gt_first_size_mean": 2.078125,
+  "test_gt_n_exp_mean": 7.84375,
+  "cache": "mutagenicity.pt",
+  "dataset_args": {
+   "class": "graphxai.datasets.Mutagenicity",
+   "split_sizes": [
+    0.7,
+    0.2,
+    0.1
+   ],
+   "seed": 42,
+   "root": "tu_data"
+  },
+  "examples": [
+   {
+    "graph_index": 16,
+    "n_nodes": 37,
+    "y": 1,
+    "n_gt_explanations": 3,
+    "gt_nodes_first": [
+     5
+    ],
+    "graph_hash": "b2479c9680da371f"
+   },
+   {
+    "graph_index": 17,
+    "n_nodes": 44,
+    "y": 1,
+    "n_gt_explanations": 1,
+    "gt_nodes_first": [
+     11,
+     12
+    ],
+    "graph_hash": "51052fb7b571ba2c"
+   }
+  ]
+ }
+]

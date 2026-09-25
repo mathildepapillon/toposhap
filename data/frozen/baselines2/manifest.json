@@ -1,0 +1,1046 @@
+{
+ "experiment": "GNN explainer baseline suite on GraphXAI",
+ "eid": "<experiment-id>",
+ "generated_utc": "2026-08-12T00:19:29.092479+00:00",
+ "join_contract": {
+  "key": [
+   "dataset",
+   "graph_index",
+   "model",
+   "explainer"
+  ],
+  "graph_index": "position in the constructed GraphXAI dataset object (split-independent)",
+  "verify_with": "graph_hash = sha256(x, edge_index, y)[:16]",
+  "split_method": "stratified_shuffle_seed42",
+  "split_indices_artifact": "cache/<dataset>.pt (train_index / val_index / test_index)",
+  "explained_population": "every ground-truth-positive graph in the test split",
+  "toposhap_partner": "<experiment-id>"
+ },
+ "graphxai": {
+  "repo": "https://github.com/mims-harvard/GraphXAI",
+  "commit": [
+   "a11e65ffbc4df737f35522a8accf2283a8aeaa37",
+   "2023-03-18 14:26:11 -0400"
+  ],
+  "patches": [
+   {
+    "id": "P1",
+    "file": "graphxai/explainers/_base.py",
+    "reason": "route edge masks through PyG's set_masks/clear_masks (PyG >= 2.1 ignores the old private attrs)",
+    "state": "applied",
+    "sha256_after": "6a715a39d1460f17"
+   },
+   {
+    "id": "P2",
+    "file": "graphxai/explainers/subgraphx_utils/shapley.py",
+    "reason": "import DataLoader from torch_geometric.loader",
+    "state": "applied",
+    "sha256_after": "98aefd1e12b59211"
+   },
+   {
+    "id": "P3",
+    "file": "graphxai/explainers/subgraphx.py",
+    "reason": "build the batch vector for SubgraphX's batched marginal subgraphs",
+    "state": "applied",
+    "sha256_after": "5068dfc999b99697"
+   },
+   {
+    "id": "P4",
+    "file": "graphxai/explainers/__init__.py",
+    "reason": "drop the PGMExplainer import (pgmpy not installed)",
+    "state": "applied",
+    "sha256_after": "6168e7ae2464d875"
+   },
+   {
+    "id": "P5",
+    "file": "graphxai/explainers/_base.py",
+    "reason": "remove the embedding forward hook after use (it leaked one hook per call)",
+    "state": "applied",
+    "sha256_after": "2eab1b60307d824c"
+   },
+   {
+    "id": "P6",
+    "file": "graphxai/datasets/real_world/extract_google_datasets.py",
+    "reason": "cast the float32 graph label to int before building a long tensor",
+    "state": "applied",
+    "sha256_after": "8422a921ae036c0f"
+   },
+   {
+    "id": "P7",
+    "file": "graphxai/explainers/subgraphx.py",
+    "reason": "build SubgraphX's result masks on the edge_index device",
+    "state": "applied",
+    "sha256_after": "20560150a0379a6b"
+   },
+   {
+    "id": "P10",
+    "file": "graphxai/explainers/_base.py",
+    "reason": "keep a supplied edge mask attached to its autograd graph (PGExplainer)",
+    "state": "applied",
+    "sha256_after": "b163248438ef960c"
+   },
+   {
+    "id": "P11",
+    "file": "graphxai/explainers/gnn_explainer.py",
+    "reason": "expose GNNExplainer's mask-optimisation epoch budget",
+    "state": "applied",
+    "sha256_after": "ac1936520d2923e0"
+   },
+   {
+    "id": "P11B",
+    "file": "graphxai/explainers/gnn_explainer.py",
+    "reason": "remove the hardcoded num_epochs = 200 now shadowed by the argument",
+    "state": "applied",
+    "sha256_after": "918649fa1a3cb05d"
+   },
+   {
+    "id": "P8",
+    "file": "graphxai/explainers/gnn_explainer.py",
+    "reason": "differentiable masked forward pass in GNNExplainer's optimisation loop",
+    "state": "applied",
+    "sha256_after": "bdd2047c77e5f162"
+   },
+   {
+    "id": "P9",
+    "file": "graphxai/explainers/pg_explainer.py",
+    "reason": "differentiable masked forward pass in PGExplainer's training loop",
+    "state": "applied",
+    "sha256_after": "9bddefdbae3ff399"
+   }
+  ]
+ },
+ "forge": {
+  "status": "cite-only",
+  "reason": "no runnable official code release found for arXiv:2406.03253 / AAAI 2025; the author's GitHub account holds no repository for this paper and the paper records list no code. Not reimplemented, per the plan."
+ },
+ "packages": {
+  "python": "3.11.15",
+  "torch": "2.3.0+cu121",
+  "torch_geometric": "2.6.1",
+  "numpy": "1.26.4",
+  "pandas": "3.0.5",
+  "scikit_learn": "1.9.0",
+  "networkx": "3.6.1",
+  "cuda": "12.1"
+ },
+ "platform": {
+  "node": "<gpu-node>",
+  "python_pod": "3.11.15"
+ },
+ "datasets": [
+  {
+   "dataset": "benzene",
+   "split_method": "stratified_shuffle_seed42",
+   "n_graphs": 12000,
+   "n_features": 14,
+   "n_classes": 2,
+   "class_balance": {
+    "0": 5999,
+    "1": 6001
+   },
+   "nodes_mean": 20.58275,
+   "nodes_min": 4,
+   "nodes_max": 25,
+   "edges_mean": 43.6535,
+   "gt_positive_total": 6001,
+   "n_train": 8399,
+   "n_val": 1201,
+   "n_test": 2400,
+   "train_class_balance": {
+    "0": 4199,
+    "1": 4200
+   },
+   "train_gt_positive": 4200,
+   "val_class_balance": {
+    "0": 600,
+    "1": 601
+   },
+   "val_gt_positive": 601,
+   "test_class_balance": {
+    "0": 1200,
+    "1": 1200
+   },
+   "test_gt_positive": 1200,
+   "test_gt_first_size_mean": 6.0,
+   "test_gt_n_exp_mean": 1.695,
+   "cache": "benzene.pt",
+   "dataset_args": {
+    "class": "graphxai.datasets.Benzene",
+    "split_sizes": [
+     0.7,
+     0.2,
+     0.1
+    ],
+    "seed": 42
+   },
+   "examples": [
+    {
+     "graph_index": 5,
+     "n_nodes": 18,
+     "y": 1,
+     "n_gt_explanations": 1,
+     "gt_nodes_first": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+     ],
+     "graph_hash": "73a24cf988bdf2e2"
+    },
+    {
+     "graph_index": 31,
+     "n_nodes": 17,
+     "y": 1,
+     "n_gt_explanations": 1,
+     "gt_nodes_first": [
+      4,
+      5,
+      6,
+      7,
+      8,
+      9
+     ],
+     "graph_hash": "e7a5cbe2e7bfe07e"
+    }
+   ]
+  },
+  {
+   "dataset": "alkane_carbonyl",
+   "split_method": "stratified_shuffle_seed42",
+   "n_graphs": 1125,
+   "n_features": 14,
+   "n_classes": 2,
+   "class_balance": {
+    "0": 750,
+    "1": 375
+   },
+   "nodes_mean": 21.48177777777778,
+   "nodes_min": 6,
+   "nodes_max": 25,
+   "edges_mean": 45.562666666666665,
+   "gt_positive_total": 375,
+   "n_train": 787,
+   "n_val": 113,
+   "n_test": 225,
+   "train_class_balance": {
+    "0": 525,
+    "1": 262
+   },
+   "train_gt_positive": 262,
+   "val_class_balance": {
+    "0": 75,
+    "1": 38
+   },
+   "val_gt_positive": 38,
+   "test_class_balance": {
+    "0": 150,
+    "1": 75
+   },
+   "test_gt_positive": 75,
+   "test_gt_first_size_mean": 3.0,
+   "test_gt_n_exp_mean": 5.48,
+   "cache": "alkane_carbonyl.pt",
+   "dataset_args": {
+    "class": "graphxai.datasets.AlkaneCarbonyl",
+    "split_sizes": [
+     0.7,
+     0.2,
+     0.1
+    ],
+    "seed": 42,
+    "downsample": true,
+    "downsample_seed": 42
+   },
+   "examples": [
+    {
+     "graph_index": 752,
+     "n_nodes": 23,
+     "y": 1,
+     "n_gt_explanations": 1,
+     "gt_nodes_first": [
+      12,
+      13,
+      21
+     ],
+     "graph_hash": "6ddf380e80ea02ca"
+    },
+    {
+     "graph_index": 754,
+     "n_nodes": 23,
+     "y": 1,
+     "n_gt_explanations": 1,
+     "gt_nodes_first": [
+      2,
+      3,
+      11
+     ],
+     "graph_hash": "6ec5a3c920c8ef9a"
+    }
+   ]
+  },
+  {
+   "dataset": "fluoride_carbonyl",
+   "split_method": "stratified_shuffle_seed42",
+   "n_graphs": 8671,
+   "n_features": 14,
+   "n_classes": 2,
+   "class_balance": {
+    "0": 7144,
+    "1": 1527
+   },
+   "nodes_mean": 21.35832083958021,
+   "nodes_min": 5,
+   "nodes_max": 25,
+   "edges_mean": 45.36593241840618,
+   "gt_positive_total": 1527,
+   "n_train": 6069,
+   "n_val": 868,
+   "n_test": 1734,
+   "train_class_balance": {
+    "0": 5000,
+    "1": 1069
+   },
+   "train_gt_positive": 1069,
+   "val_class_balance": {
+    "0": 715,
+    "1": 153
+   },
+   "val_gt_positive": 153,
+   "test_class_balance": {
+    "0": 1429,
+    "1": 305
+   },
+   "test_gt_positive": 305,
+   "test_gt_first_size_mean": 5.0,
+   "test_gt_n_exp_mean": 5.862295081967213,
+   "cache": "fluoride_carbonyl.pt",
+   "dataset_args": {
+    "class": "graphxai.datasets.FluorideCarbonyl",
+    "split_sizes": [
+     0.7,
+     0.2,
+     0.1
+    ],
+    "seed": 42
+   },
+   "examples": [
+    {
+     "graph_index": 48,
+     "n_nodes": 20,
+     "y": 1,
+     "n_gt_explanations": 3,
+     "gt_nodes_first": [
+      1,
+      2,
+      16,
+      17,
+      18
+     ],
+     "graph_hash": "ee6dce1aed4c072e"
+    },
+    {
+     "graph_index": 117,
+     "n_nodes": 25,
+     "y": 1,
+     "n_gt_explanations": 3,
+     "gt_nodes_first": [
+      8,
+      9,
+      10,
+      11,
+      12
+     ],
+     "graph_hash": "3b8fe73bc6808a21"
+    }
+   ]
+  },
+  {
+   "dataset": "mutagenicity",
+   "split_method": "stratified_shuffle_seed42",
+   "n_graphs": 1768,
+   "n_features": 14,
+   "n_classes": 2,
+   "class_balance": {
+    "0": 1128,
+    "1": 640
+   },
+   "nodes_mean": 29.149886877828056,
+   "nodes_min": 4,
+   "nodes_max": 103,
+   "edges_mean": 60.83031674208145,
+   "gt_positive_total": 640,
+   "n_train": 1237,
+   "n_val": 177,
+   "n_test": 354,
+   "train_class_balance": {
+    "0": 789,
+    "1": 448
+   },
+   "train_gt_positive": 448,
+   "val_class_balance": {
+    "0": 113,
+    "1": 64
+   },
+   "val_gt_positive": 64,
+   "test_class_balance": {
+    "0": 226,
+    "1": 128
+   },
+   "test_gt_positive": 128,
+   "test_gt_first_size_mean": 2.078125,
+   "test_gt_n_exp_mean": 7.84375,
+   "cache": "mutagenicity.pt",
+   "dataset_args": {
+    "class": "graphxai.datasets.Mutagenicity",
+    "split_sizes": [
+     0.7,
+     0.2,
+     0.1
+    ],
+    "seed": 42,
+    "root": "tu_data"
+   },
+   "examples": [
+    {
+     "graph_index": 16,
+     "n_nodes": 37,
+     "y": 1,
+     "n_gt_explanations": 3,
+     "gt_nodes_first": [
+      5
+     ],
+     "graph_hash": "b2479c9680da371f"
+    },
+    {
+     "graph_index": 17,
+     "n_nodes": 44,
+     "y": 1,
+     "n_gt_explanations": 1,
+     "gt_nodes_first": [
+      11,
+      12
+     ],
+     "graph_hash": "51052fb7b571ba2c"
+    }
+   ]
+  }
+ ],
+ "dataset_args": {
+  "benzene": {
+   "class": "graphxai.datasets.Benzene",
+   "split_sizes": [
+    0.7,
+    0.2,
+    0.1
+   ],
+   "seed": 42
+  },
+  "alkane_carbonyl": {
+   "class": "graphxai.datasets.AlkaneCarbonyl",
+   "split_sizes": [
+    0.7,
+    0.2,
+    0.1
+   ],
+   "seed": 42,
+   "downsample": true,
+   "downsample_seed": 42
+  },
+  "fluoride_carbonyl": {
+   "class": "graphxai.datasets.FluorideCarbonyl",
+   "split_sizes": [
+    0.7,
+    0.2,
+    0.1
+   ],
+   "seed": 42
+  },
+  "mutagenicity": {
+   "class": "graphxai.datasets.Mutagenicity",
+   "split_sizes": [
+    0.7,
+    0.2,
+    0.1
+   ],
+   "seed": 42,
+   "root": "tu_data"
+  }
+ },
+ "models": [
+  {
+   "dataset": "alkane_carbonyl",
+   "model": "gcn",
+   "architecture": "GCN_3layer(in=14, hidden=32, out=2)",
+   "optimizer": "Adam(lr=1e-3, weight_decay=5e-4)",
+   "loss": "CrossEntropyLoss(weight=N/(2*N_c) from the training split)",
+   "class_weights": [
+    0.7495238095238095,
+    1.501908396946565
+   ],
+   "batch_size": 64,
+   "seed": 42,
+   "max_epochs": 300,
+   "early_stopping": {
+    "monitor": "val_balanced_accuracy",
+    "patience": 30,
+    "best_epoch": 29,
+    "best_value": 0.96
+   },
+   "epochs_run": 59,
+   "train_seconds": 3.73603892326355,
+   "train_metrics": {
+    "accuracy": 0.9390088945362135,
+    "balanced_accuracy": 0.9485496183206107,
+    "n": 787,
+    "f1": 0.9142857142857143,
+    "auroc": 0.9585241730279899
+   },
+   "val_metrics": {
+    "accuracy": 0.9469026548672567,
+    "balanced_accuracy": 0.96,
+    "n": 113,
+    "f1": 0.926829268292683,
+    "auroc": 0.9515789473684211
+   },
+   "test_metrics": {
+    "accuracy": 0.9466666666666667,
+    "balanced_accuracy": 0.9533333333333334,
+    "n": 225,
+    "f1": 0.9240506329113924,
+    "auroc": 0.963911111111111
+   },
+   "code_version": 1,
+   "device": "cuda"
+  },
+  {
+   "dataset": "alkane_carbonyl",
+   "model": "gin",
+   "architecture": "GIN_3layer(in=14, hidden=32, out=2)",
+   "optimizer": "Adam(lr=1e-3, weight_decay=5e-4)",
+   "loss": "CrossEntropyLoss(weight=N/(2*N_c) from the training split)",
+   "class_weights": [
+    0.7495238095238095,
+    1.501908396946565
+   ],
+   "batch_size": 64,
+   "seed": 42,
+   "max_epochs": 300,
+   "early_stopping": {
+    "monitor": "val_balanced_accuracy",
+    "patience": 30,
+    "best_epoch": 31,
+    "best_value": 0.96
+   },
+   "epochs_run": 61,
+   "train_seconds": 3.2332570552825928,
+   "train_metrics": {
+    "accuracy": 0.9377382465057179,
+    "balanced_accuracy": 0.9485532533624137,
+    "n": 787,
+    "f1": 0.9129662522202486,
+    "auroc": 0.9633369683751364
+   },
+   "val_metrics": {
+    "accuracy": 0.9469026548672567,
+    "balanced_accuracy": 0.96,
+    "n": 113,
+    "f1": 0.926829268292683,
+    "auroc": 0.9515789473684211
+   },
+   "test_metrics": {
+    "accuracy": 0.9511111111111111,
+    "balanced_accuracy": 0.9566666666666667,
+    "n": 225,
+    "f1": 0.9299363057324841,
+    "auroc": 0.9624888888888888
+   },
+   "code_version": 1,
+   "device": "cuda"
+  },
+  {
+   "dataset": "benzene",
+   "model": "gcn",
+   "architecture": "GCN_3layer(in=14, hidden=32, out=2)",
+   "optimizer": "Adam(lr=1e-3, weight_decay=5e-4)",
+   "loss": "CrossEntropyLoss(weight=N/(2*N_c) from the training split)",
+   "class_weights": [
+    1.0001190759704692,
+    0.9998809523809524
+   ],
+   "batch_size": 64,
+   "seed": 42,
+   "max_epochs": 300,
+   "early_stopping": {
+    "monitor": "val_balanced_accuracy",
+    "patience": 30,
+    "best_epoch": 113,
+    "best_value": 0.8742179700499169
+   },
+   "epochs_run": 143,
+   "train_seconds": 79.5582344532013,
+   "train_metrics": {
+    "accuracy": 0.8561733539707108,
+    "balanced_accuracy": 0.8561650449653546,
+    "n": 8399,
+    "f1": 0.8655686623636768,
+    "auroc": 0.9245631329454859
+   },
+   "val_metrics": {
+    "accuracy": 0.8742714404662781,
+    "balanced_accuracy": 0.8742179700499169,
+    "n": 1201,
+    "f1": 0.8819390148553558,
+    "auroc": 0.931963394342762
+   },
+   "test_metrics": {
+    "accuracy": 0.85,
+    "balanced_accuracy": 0.85,
+    "n": 2400,
+    "f1": 0.8594847775175644,
+    "auroc": 0.9210083333333333
+   },
+   "code_version": 1,
+   "device": "cuda"
+  },
+  {
+   "dataset": "benzene",
+   "model": "gin",
+   "architecture": "GIN_3layer(in=14, hidden=32, out=2)",
+   "optimizer": "Adam(lr=1e-3, weight_decay=5e-4)",
+   "loss": "CrossEntropyLoss(weight=N/(2*N_c) from the training split)",
+   "class_weights": [
+    1.0001190759704692,
+    0.9998809523809524
+   ],
+   "batch_size": 64,
+   "seed": 42,
+   "max_epochs": 300,
+   "early_stopping": {
+    "monitor": "val_balanced_accuracy",
+    "patience": 30,
+    "best_epoch": 71,
+    "best_value": 0.8992318358291735
+   },
+   "epochs_run": 101,
+   "train_seconds": 46.328388929367065,
+   "train_metrics": {
+    "accuracy": 0.8971306107869984,
+    "balanced_accuracy": 0.8971281144036563,
+    "n": 8399,
+    "f1": 0.8992537313432836,
+    "auroc": 0.9576524172422005
+   },
+   "val_metrics": {
+    "accuracy": 0.8992506244796004,
+    "balanced_accuracy": 0.8992318358291735,
+    "n": 1201,
+    "f1": 0.9015459723352319,
+    "auroc": 0.9607820299500832
+   },
+   "test_metrics": {
+    "accuracy": 0.8854166666666666,
+    "balanced_accuracy": 0.8854166666666666,
+    "n": 2400,
+    "f1": 0.8866913885455294,
+    "auroc": 0.9533569444444446
+   },
+   "code_version": 1,
+   "device": "cuda"
+  },
+  {
+   "dataset": "fluoride_carbonyl",
+   "model": "gcn",
+   "architecture": "GCN_3layer(in=14, hidden=128, out=2)",
+   "arch": {
+    "layers": 3,
+    "hidden": 128
+   },
+   "optimizer": "Adam(lr=0.003, weight_decay=0.0001)",
+   "loss": "CrossEntropyLoss(weight=sqrt)",
+   "class_weights": [
+    0.7790378681424928,
+    1.6848246904664113
+   ],
+   "batch_size": 128,
+   "seed": 42,
+   "max_epochs": 300,
+   "early_stopping": {
+    "monitor": "val_balanced_accuracy",
+    "patience": 40,
+    "best_epoch": 275,
+    "best_value": null
+   },
+   "epochs_run": 300,
+   "train_seconds": 82.18388414382935,
+   "train_metrics": {
+    "accuracy": 0.8495633547536662,
+    "balanced_accuracy": 0.7810987839101964,
+    "n": 6069,
+    "f1": 0.6126431904963937,
+    "auroc": 0.8845246024321796
+   },
+   "val_metrics": {
+    "accuracy": 0.8594470046082949,
+    "balanced_accuracy": 0.7785456373691668,
+    "n": 868,
+    "f1": 0.6211180124223602,
+    "auroc": 0.8664198546551487
+   },
+   "test_metrics": {
+    "accuracy": 0.8437139561707035,
+    "balanced_accuracy": 0.7749440741548028,
+    "n": 1734,
+    "f1": 0.6008836524300442,
+    "auroc": 0.8635845311980176
+   },
+   "code_version": 2,
+   "device": "cuda",
+   "retune": {
+    "reason": "test accuracy 0.6257 missed the 0.75 bar",
+    "n_configs": 10,
+    "selection_rule": "max val accuracy among val_f1 >= 0.4",
+    "selected": "c10",
+    "f1_floor": 0.4,
+    "accuracy_bar": 0.75,
+    "clears_bar": true,
+    "beats_majority_class": true,
+    "class_rates": {
+     "train": {
+      "n": 6069,
+      "class_counts": [
+       5000,
+       1069
+      ],
+      "positive_rate": 0.1761410446531554,
+      "majority_class": 0,
+      "majority_class_rate": 0.8238589553468446
+     },
+     "val": {
+      "n": 868,
+      "class_counts": [
+       715,
+       153
+      ],
+      "positive_rate": 0.17626728110599077,
+      "majority_class": 0,
+      "majority_class_rate": 0.8237327188940092
+     },
+     "test": {
+      "n": 1734,
+      "class_counts": [
+       1429,
+       305
+      ],
+      "positive_rate": 0.17589388696655134,
+      "majority_class": 0,
+      "majority_class_rate": 0.8241061130334487
+     }
+    },
+    "weak_model": false,
+    "superseded": {
+     "test_accuracy": 0.6257208765859285,
+     "archived_in": "superseded_weak_fc_gcn"
+    }
+   }
+  },
+  {
+   "dataset": "fluoride_carbonyl",
+   "model": "gin",
+   "architecture": "GIN_3layer(in=14, hidden=32, out=2)",
+   "optimizer": "Adam(lr=1e-3, weight_decay=5e-4)",
+   "loss": "CrossEntropyLoss(weight=N/(2*N_c) from the training split)",
+   "class_weights": [
+    0.6069,
+    2.8386342376052385
+   ],
+   "batch_size": 64,
+   "seed": 42,
+   "max_epochs": 300,
+   "early_stopping": {
+    "monitor": "val_balanced_accuracy",
+    "patience": 30,
+    "best_epoch": 161,
+    "best_value": 0.8826637414872709
+   },
+   "epochs_run": 191,
+   "train_seconds": 63.54280734062195,
+   "train_metrics": {
+    "accuracy": 0.8877904102817598,
+    "balanced_accuracy": 0.8793150608044902,
+    "n": 6069,
+    "f1": 0.7311488353730754,
+    "auroc": 0.9385277829747428
+   },
+   "val_metrics": {
+    "accuracy": 0.8870967741935484,
+    "balanced_accuracy": 0.8826637414872709,
+    "n": 868,
+    "f1": 0.73224043715847,
+    "auroc": 0.9296220119749532
+   },
+   "test_metrics": {
+    "accuracy": 0.8662053056516724,
+    "balanced_accuracy": 0.8375890511535065,
+    "n": 1734,
+    "f1": 0.6759776536312849,
+    "auroc": 0.923734355103305
+   },
+   "code_version": 1,
+   "device": "cuda"
+  },
+  {
+   "dataset": "mutagenicity",
+   "model": "gcn",
+   "architecture": "GCN_3layer(in=14, hidden=32, out=2)",
+   "optimizer": "Adam(lr=1e-3, weight_decay=5e-4)",
+   "loss": "CrossEntropyLoss(weight=N/(2*N_c) from the training split)",
+   "class_weights": [
+    0.7839036755386565,
+    1.3805803571428572
+   ],
+   "batch_size": 64,
+   "seed": 42,
+   "max_epochs": 300,
+   "early_stopping": {
+    "monitor": "val_balanced_accuracy",
+    "patience": 30,
+    "best_epoch": 67,
+    "best_value": 0.9534015486725664
+   },
+   "epochs_run": 97,
+   "train_seconds": 8.886424779891968,
+   "train_metrics": {
+    "accuracy": 0.9086499595796281,
+    "balanced_accuracy": 0.9153667051421329,
+    "n": 1237,
+    "f1": 0.881675392670157,
+    "auroc": 0.9714347954010502
+   },
+   "val_metrics": {
+    "accuracy": 0.9491525423728814,
+    "balanced_accuracy": 0.9534015486725664,
+    "n": 177,
+    "f1": 0.9323308270676691,
+    "auroc": 0.974695796460177
+   },
+   "test_metrics": {
+    "accuracy": 0.884180790960452,
+    "balanced_accuracy": 0.8940472898230089,
+    "n": 354,
+    "f1": 0.8530465949820788,
+    "auroc": 0.9550954092920354
+   },
+   "code_version": 1,
+   "device": "cuda"
+  },
+  {
+   "dataset": "mutagenicity",
+   "model": "gin",
+   "architecture": "GIN_3layer(in=14, hidden=32, out=2)",
+   "optimizer": "Adam(lr=1e-3, weight_decay=5e-4)",
+   "loss": "CrossEntropyLoss(weight=N/(2*N_c) from the training split)",
+   "class_weights": [
+    0.7839036755386565,
+    1.3805803571428572
+   ],
+   "batch_size": 64,
+   "seed": 42,
+   "max_epochs": 300,
+   "early_stopping": {
+    "monitor": "val_balanced_accuracy",
+    "patience": 30,
+    "best_epoch": 59,
+    "best_value": 0.9755254424778761
+   },
+   "epochs_run": 89,
+   "train_seconds": 7.007813453674316,
+   "train_metrics": {
+    "accuracy": 0.9692805173807599,
+    "balanced_accuracy": 0.9682011587905124,
+    "n": 1237,
+    "f1": 0.9578713968957872,
+    "auroc": 0.995600783088901
+   },
+   "val_metrics": {
+    "accuracy": 0.9774011299435028,
+    "balanced_accuracy": 0.9755254424778761,
+    "n": 177,
+    "f1": 0.96875,
+    "auroc": 0.9894911504424779
+   },
+   "test_metrics": {
+    "accuracy": 0.9548022598870056,
+    "balanced_accuracy": 0.9544386061946903,
+    "n": 354,
+    "f1": 0.9384615384615385,
+    "auroc": 0.9861725663716814
+   },
+   "code_version": 1,
+   "device": "cuda"
+  }
+ ],
+ "model_quality": {
+  "note": "Cells whose classifier misses the plan's accuracy bar are listed here so a downstream join can exclude them. Accuracy is reported next to the majority-class rate of the same test split, since the bar can sit below it.",
+  "bars": {
+   "benzene": 0.8,
+   "alkane_carbonyl": 0.8,
+   "mutagenicity": 0.8,
+   "fluoride_carbonyl": 0.75
+  },
+  "per_cell": {
+   "alkane_carbonyl/gcn": {
+    "test_accuracy": 0.9466666666666667,
+    "test_f1_positive": 0.9240506329113924,
+    "test_auroc": 0.963911111111111,
+    "majority_class_rate": 0.6666666666666666,
+    "clears_bar": true
+   },
+   "alkane_carbonyl/gin": {
+    "test_accuracy": 0.9511111111111111,
+    "test_f1_positive": 0.9299363057324841,
+    "test_auroc": 0.9624888888888888,
+    "majority_class_rate": 0.6666666666666666,
+    "clears_bar": true
+   },
+   "benzene/gcn": {
+    "test_accuracy": 0.85,
+    "test_f1_positive": 0.8594847775175644,
+    "test_auroc": 0.9210083333333333,
+    "majority_class_rate": 0.5,
+    "clears_bar": true
+   },
+   "benzene/gin": {
+    "test_accuracy": 0.8854166666666666,
+    "test_f1_positive": 0.8866913885455294,
+    "test_auroc": 0.9533569444444446,
+    "majority_class_rate": 0.5,
+    "clears_bar": true
+   },
+   "fluoride_carbonyl/gcn": {
+    "test_accuracy": 0.8437139561707035,
+    "test_f1_positive": 0.6008836524300442,
+    "test_auroc": 0.8635845311980176,
+    "majority_class_rate": 0.8241061130334487,
+    "clears_bar": true
+   },
+   "fluoride_carbonyl/gin": {
+    "test_accuracy": 0.8662053056516724,
+    "test_f1_positive": 0.6759776536312849,
+    "test_auroc": 0.923734355103305,
+    "majority_class_rate": 0.8241061130334487,
+    "clears_bar": true
+   },
+   "mutagenicity/gcn": {
+    "test_accuracy": 0.884180790960452,
+    "test_f1_positive": 0.8530465949820788,
+    "test_auroc": 0.9550954092920354,
+    "majority_class_rate": 0.6384180790960452,
+    "clears_bar": true
+   },
+   "mutagenicity/gin": {
+    "test_accuracy": 0.9548022598870056,
+    "test_f1_positive": 0.9384615384615385,
+    "test_auroc": 0.9861725663716814,
+    "majority_class_rate": 0.6384180790960452,
+    "clears_bar": true
+   }
+  },
+  "weak_model_cells": []
+ },
+ "explainers": {
+  "random": {
+   "kind": "control",
+   "distribution": "uniform(0,1) per node",
+   "seed": "42 + graph_index"
+  },
+  "gnnexplainer": {
+   "epochs": 200,
+   "lr": 0.01,
+   "coeff": "graphxai-default"
+  },
+  "pgexplainer": {
+   "emb_layer_name": "conv3",
+   "explain_graph": true,
+   "max_epochs": 10,
+   "lr": 0.1,
+   "train_subsample": 1000,
+   "train_split": "train"
+  },
+  "subgraphx": {
+   "rollout": 10,
+   "min_atoms": 3,
+   "c_puct": 10.0,
+   "expand_atoms": 14,
+   "local_radius": 4,
+   "sample_num": 100,
+   "reward_method": "mc_l_shapley",
+   "subgraph_building_method": "zero_filling"
+  }
+ },
+ "explainer_variants": {
+  "gnnexplainer": {
+   "graphxai_default": {
+    "lr": 0.01,
+    "epochs": 200
+   },
+   "selected_on_train": {
+    "lr": 0.05,
+    "epochs": 1000
+   }
+  },
+  "pgexplainer": {
+   "graphxai_default": {
+    "max_epochs": 10,
+    "lr": 0.1,
+    "coeff_size": 0.01,
+    "coeff_ent": 0.0005
+   },
+   "selected_on_train": {
+    "max_epochs": 30,
+    "lr": 0.003,
+    "coeff_size": 0.2,
+    "coeff_ent": 1.0
+   }
+  },
+  "subgraphx": {
+   "graphxai_default": {}
+  },
+  "random": {
+   "graphxai_default": {}
+  }
+ },
+ "primary_variant": {
+  "gnnexplainer": "selected_on_train",
+  "pgexplainer": "selected_on_train",
+  "subgraphx": "graphxai_default",
+  "random": "graphxai_default"
+ },
+ "variant_selection": {
+  "method": "chosen using TRAINING-split graphs only; the evaluated test population was never used to pick a configuration",
+  "gnnexplainer": "smallest budget whose edge-mask ranking is stable against the next larger budget (Spearman >= 0.95 on 15 train graphs): lr 0.05, 1000 epochs. GraphXAI's default (lr 0.01, 200 epochs) is unconverged: Spearman 0.5323 (GCN) / 0.6981 (GIN) against its own 1000-epoch mask, edge AUROC 0.5574 / 0.5709.",
+  "pgexplainer": "GraphXAI's shipped coefficients produce a constant mask (std 0.00000) once the fidelity gradient is restored, so the published PGExplainer coefficients were used instead (coeff_size 0.2, coeff_ent 1.0, 30 epochs, lr 0.003)."
+ },
+ "metrics": {
+  "gea": "Jaccard(top-k attributed nodes, ground-truth nodes), k = |GT|, best over the graph's admissible ground-truth explanations; ties broken by ascending node index",
+  "gef": "1 - exp(-KL(p_full || p_top-quartile-kept)); nodes outside the top quartile (k = max(1, floor(0.25 n))) have their features zeroed. Lower is better.",
+  "gef_kl_rev": "same with the KL arguments swapped (the order GraphXAI's code passes)",
+  "gef_zero_top": "GraphXAI's shipped node branch literally zeroes the top quartile instead",
+  "edge_auroc": "diagnostic: AUROC of the explainer's edge mask against the ground-truth edge indicator (both endpoints in the largest ground-truth node set); nan for a constant mask or the random control",
+  "node_importance": {
+   "gnnexplainer": "sum of learned edge-mask weight over incident edges",
+   "pgexplainer": "sum of generated edge-mask weight over incident edges",
+   "subgraphx": "max MCTS reward over explored coalitions containing the node, +1 for membership in the returned subgraph"
+  }
+ },
+ "results": {
+  "combined_parquet": "results_all.parquet",
+  "n_rows": 20496,
+  "n_shard_files": 117,
+  "summary": "summary.csv / summary.json",
+  "verification": "verification.json"
+ },
+ "code_version": 2,
+ "seed": 42
+}

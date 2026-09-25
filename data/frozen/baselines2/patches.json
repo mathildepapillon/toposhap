@@ -1,0 +1,86 @@
+[
+ {
+  "id": "P1",
+  "file": "graphxai/explainers/_base.py",
+  "reason": "route edge masks through PyG's set_masks/clear_masks (PyG >= 2.1 ignores the old private attrs)",
+  "state": "applied",
+  "sha256_after": "6a715a39d1460f17"
+ },
+ {
+  "id": "P2",
+  "file": "graphxai/explainers/subgraphx_utils/shapley.py",
+  "reason": "import DataLoader from torch_geometric.loader",
+  "state": "applied",
+  "sha256_after": "98aefd1e12b59211"
+ },
+ {
+  "id": "P3",
+  "file": "graphxai/explainers/subgraphx.py",
+  "reason": "build the batch vector for SubgraphX's batched marginal subgraphs",
+  "state": "applied",
+  "sha256_after": "5068dfc999b99697"
+ },
+ {
+  "id": "P4",
+  "file": "graphxai/explainers/__init__.py",
+  "reason": "drop the PGMExplainer import (pgmpy not installed)",
+  "state": "applied",
+  "sha256_after": "6168e7ae2464d875"
+ },
+ {
+  "id": "P5",
+  "file": "graphxai/explainers/_base.py",
+  "reason": "remove the embedding forward hook after use (it leaked one hook per call)",
+  "state": "applied",
+  "sha256_after": "2eab1b60307d824c"
+ },
+ {
+  "id": "P6",
+  "file": "graphxai/datasets/real_world/extract_google_datasets.py",
+  "reason": "cast the float32 graph label to int before building a long tensor",
+  "state": "applied",
+  "sha256_after": "8422a921ae036c0f"
+ },
+ {
+  "id": "P7",
+  "file": "graphxai/explainers/subgraphx.py",
+  "reason": "build SubgraphX's result masks on the edge_index device",
+  "state": "applied",
+  "sha256_after": "20560150a0379a6b"
+ },
+ {
+  "id": "P10",
+  "file": "graphxai/explainers/_base.py",
+  "reason": "keep a supplied edge mask attached to its autograd graph (PGExplainer)",
+  "state": "applied",
+  "sha256_after": "b163248438ef960c"
+ },
+ {
+  "id": "P11",
+  "file": "graphxai/explainers/gnn_explainer.py",
+  "reason": "expose GNNExplainer's mask-optimisation epoch budget",
+  "state": "applied",
+  "sha256_after": "ac1936520d2923e0"
+ },
+ {
+  "id": "P11B",
+  "file": "graphxai/explainers/gnn_explainer.py",
+  "reason": "remove the hardcoded num_epochs = 200 now shadowed by the argument",
+  "state": "applied",
+  "sha256_after": "918649fa1a3cb05d"
+ },
+ {
+  "id": "P8",
+  "file": "graphxai/explainers/gnn_explainer.py",
+  "reason": "differentiable masked forward pass in GNNExplainer's optimisation loop",
+  "state": "applied",
+  "sha256_after": "bdd2047c77e5f162"
+ },
+ {
+  "id": "P9",
+  "file": "graphxai/explainers/pg_explainer.py",
+  "reason": "differentiable masked forward pass in PGExplainer's training loop",
+  "state": "applied",
+  "sha256_after": "9bddefdbae3ff399"
+ }
+]

@@ -1,0 +1,1091 @@
+{
+ "all_pass": true,
+ "checks": [
+  {
+   "check": "coverage: all ground-truth-positive test graphs in all 32 cells (4 datasets x 2 models x 3 explainers + 1 random control)",
+   "pass": true,
+   "cells": 32,
+   "missing_rows_total": 0,
+   "per_cell": [
+    {
+     "dataset": "benzene",
+     "model": "gcn",
+     "explainer": "gnnexplainer",
+     "variants": [
+      "graphxai_default",
+      "selected_on_train"
+     ],
+     "expected": 1200,
+     "got": 1200,
+     "missing": 0,
+     "extra": 0,
+     "missing_examples": []
+    },
+    {
+     "dataset": "benzene",
+     "model": "gcn",
+     "explainer": "pgexplainer",
+     "variants": [
+      "graphxai_default",
+      "selected_on_train"
+     ],
+     "expected": 1200,
+     "got": 1200,
+     "missing": 0,
+     "extra": 0,
+     "missing_examples": []
+    },
+    {
+     "dataset": "benzene",
+     "model": "gcn",
+     "explainer": "subgraphx",
+     "variants": [
+      "graphxai_default"
+     ],
+     "expected": 1200,
+     "got": 1200,
+     "missing": 0,
+     "extra": 0,
+     "missing_examples": []
+    },
+    {
+     "dataset": "benzene",
+     "model": "gcn",
+     "explainer": "random",
+     "variants": [
+      "graphxai_default"
+     ],
+     "expected": 1200,
+     "got": 1200,
+     "missing": 0,
+     "extra": 0,
+     "missing_examples": []
+    },
+    {
+     "dataset": "benzene",
+     "model": "gin",
+     "explainer": "gnnexplainer",
+     "variants": [
+      "graphxai_default",
+      "selected_on_train"
+     ],
+     "expected": 1200,
+     "got": 1200,
+     "missing": 0,
+     "extra": 0,
+     "missing_examples": []
+    },
+    {
+     "dataset": "benzene",
+     "model": "gin",
+     "explainer": "pgexplainer",
+     "variants": [
+      "graphxai_default",
+      "selected_on_train"
+     ],
+     "expected": 1200,
+     "got": 1200,
+     "missing": 0,
+     "extra": 0,
+     "missing_examples": []
+    },
+    {
+     "dataset": "benzene",
+     "model": "gin",
+     "explainer": "subgraphx",
+     "variants": [
+      "graphxai_default"
+     ],
+     "expected": 1200,
+     "got": 1200,
+     "missing": 0,
+     "extra": 0,
+     "missing_examples": []
+    },
+    {
+     "dataset": "benzene",
+     "model": "gin",
+     "explainer": "random",
+     "variants": [
+      "graphxai_default"
+     ],
+     "expected": 1200,
+     "got": 1200,
+     "missing": 0,
+     "extra": 0,
+     "missing_examples": []
+    },
+    {
+     "dataset": "alkane_carbonyl",
+     "model": "gcn",
+     "explainer": "gnnexplainer",
+     "variants": [
+      "graphxai_default",
+      "selected_on_train"
+     ],
+     "expected": 75,
+     "got": 75,
+     "missing": 0,
+     "extra": 0,
+     "missing_examples": []
+    },
+    {
+     "dataset": "alkane_carbonyl",
+     "model": "gcn",
+     "explainer": "pgexplainer",
+     "variants": [
+      "graphxai_default",
+      "selected_on_train"
+     ],
+     "expected": 75,
+     "got": 75,
+     "missing": 0,
+     "extra": 0,
+     "missing_examples": []
+    },
+    {
+     "dataset": "alkane_carbonyl",
+     "model": "gcn",
+     "explainer": "subgraphx",
+     "variants": [
+      "graphxai_default"
+     ],
+     "expected": 75,
+     "got": 75,
+     "missing": 0,
+     "extra": 0,
+     "missing_examples": []
+    },
+    {
+     "dataset": "alkane_carbonyl",
+     "model": "gcn",
+     "explainer": "random",
+     "variants": [
+      "graphxai_default"
+     ],
+     "expected": 75,
+     "got": 75,
+     "missing": 0,
+     "extra": 0,
+     "missing_examples": []
+    },
+    {
+     "dataset": "alkane_carbonyl",
+     "model": "gin",
+     "explainer": "gnnexplainer",
+     "variants": [
+      "graphxai_default",
+      "selected_on_train"
+     ],
+     "expected": 75,
+     "got": 75,
+     "missing": 0,
+     "extra": 0,
+     "missing_examples": []
+    },
+    {
+     "dataset": "alkane_carbonyl",
+     "model": "gin",
+     "explainer": "pgexplainer",
+     "variants": [
+      "graphxai_default",
+      "selected_on_train"
+     ],
+     "expected": 75,
+     "got": 75,
+     "missing": 0,
+     "extra": 0,
+     "missing_examples": []
+    },
+    {
+     "dataset": "alkane_carbonyl",
+     "model": "gin",
+     "explainer": "subgraphx",
+     "variants": [
+      "graphxai_default"
+     ],
+     "expected": 75,
+     "got": 75,
+     "missing": 0,
+     "extra": 0,
+     "missing_examples": []
+    },
+    {
+     "dataset": "alkane_carbonyl",
+     "model": "gin",
+     "explainer": "random",
+     "variants": [
+      "graphxai_default"
+     ],
+     "expected": 75,
+     "got": 75,
+     "missing": 0,
+     "extra": 0,
+     "missing_examples": []
+    },
+    {
+     "dataset": "fluoride_carbonyl",
+     "model": "gcn",
+     "explainer": "gnnexplainer",
+     "variants": [
+      "graphxai_default",
+      "selected_on_train"
+     ],
+     "expected": 305,
+     "got": 305,
+     "missing": 0,
+     "extra": 0,
+     "missing_examples": []
+    },
+    {
+     "dataset": "fluoride_carbonyl",
+     "model": "gcn",
+     "explainer": "pgexplainer",
+     "variants": [
+      "graphxai_default",
+      "selected_on_train"
+     ],
+     "expected": 305,
+     "got": 305,
+     "missing": 0,
+     "extra": 0,
+     "missing_examples": []
+    },
+    {
+     "dataset": "fluoride_carbonyl",
+     "model": "gcn",
+     "explainer": "subgraphx",
+     "variants": [
+      "graphxai_default"
+     ],
+     "expected": 305,
+     "got": 305,
+     "missing": 0,
+     "extra": 0,
+     "missing_examples": []
+    },
+    {
+     "dataset": "fluoride_carbonyl",
+     "model": "gcn",
+     "explainer": "random",
+     "variants": [
+      "graphxai_default"
+     ],
+     "expected": 305,
+     "got": 305,
+     "missing": 0,
+     "extra": 0,
+     "missing_examples": []
+    },
+    {
+     "dataset": "fluoride_carbonyl",
+     "model": "gin",
+     "explainer": "gnnexplainer",
+     "variants": [
+      "graphxai_default",
+      "selected_on_train"
+     ],
+     "expected": 305,
+     "got": 305,
+     "missing": 0,
+     "extra": 0,
+     "missing_examples": []
+    },
+    {
+     "dataset": "fluoride_carbonyl",
+     "model": "gin",
+     "explainer": "pgexplainer",
+     "variants": [
+      "graphxai_default",
+      "selected_on_train"
+     ],
+     "expected": 305,
+     "got": 305,
+     "missing": 0,
+     "extra": 0,
+     "missing_examples": []
+    },
+    {
+     "dataset": "fluoride_carbonyl",
+     "model": "gin",
+     "explainer": "subgraphx",
+     "variants": [
+      "graphxai_default"
+     ],
+     "expected": 305,
+     "got": 305,
+     "missing": 0,
+     "extra": 0,
+     "missing_examples": []
+    },
+    {
+     "dataset": "fluoride_carbonyl",
+     "model": "gin",
+     "explainer": "random",
+     "variants": [
+      "graphxai_default"
+     ],
+     "expected": 305,
+     "got": 305,
+     "missing": 0,
+     "extra": 0,
+     "missing_examples": []
+    },
+    {
+     "dataset": "mutagenicity",
+     "model": "gcn",
+     "explainer": "gnnexplainer",
+     "variants": [
+      "graphxai_default",
+      "selected_on_train"
+     ],
+     "expected": 128,
+     "got": 128,
+     "missing": 0,
+     "extra": 0,
+     "missing_examples": []
+    },
+    {
+     "dataset": "mutagenicity",
+     "model": "gcn",
+     "explainer": "pgexplainer",
+     "variants": [
+      "graphxai_default",
+      "selected_on_train"
+     ],
+     "expected": 128,
+     "got": 128,
+     "missing": 0,
+     "extra": 0,
+     "missing_examples": []
+    },
+    {
+     "dataset": "mutagenicity",
+     "model": "gcn",
+     "explainer": "subgraphx",
+     "variants": [
+      "graphxai_default"
+     ],
+     "expected": 128,
+     "got": 128,
+     "missing": 0,
+     "extra": 0,
+     "missing_examples": []
+    },
+    {
+     "dataset": "mutagenicity",
+     "model": "gcn",
+     "explainer": "random",
+     "variants": [
+      "graphxai_default"
+     ],
+     "expected": 128,
+     "got": 128,
+     "missing": 0,
+     "extra": 0,
+     "missing_examples": []
+    },
+    {
+     "dataset": "mutagenicity",
+     "model": "gin",
+     "explainer": "gnnexplainer",
+     "variants": [
+      "graphxai_default",
+      "selected_on_train"
+     ],
+     "expected": 128,
+     "got": 128,
+     "missing": 0,
+     "extra": 0,
+     "missing_examples": []
+    },
+    {
+     "dataset": "mutagenicity",
+     "model": "gin",
+     "explainer": "pgexplainer",
+     "variants": [
+      "graphxai_default",
+      "selected_on_train"
+     ],
+     "expected": 128,
+     "got": 128,
+     "missing": 0,
+     "extra": 0,
+     "missing_examples": []
+    },
+    {
+     "dataset": "mutagenicity",
+     "model": "gin",
+     "explainer": "subgraphx",
+     "variants": [
+      "graphxai_default"
+     ],
+     "expected": 128,
+     "got": 128,
+     "missing": 0,
+     "extra": 0,
+     "missing_examples": []
+    },
+    {
+     "dataset": "mutagenicity",
+     "model": "gin",
+     "explainer": "random",
+     "variants": [
+      "graphxai_default"
+     ],
+     "expected": 128,
+     "got": 128,
+     "missing": 0,
+     "extra": 0,
+     "missing_examples": []
+    }
+   ]
+  },
+  {
+   "check": "every GEA in [0,1] and finite",
+   "pass": true,
+   "n": 20496,
+   "min": 0.0,
+   "max": 1.0,
+   "n_nonfinite": 0
+  },
+  {
+   "check": "per-cell GEA and GEF means are finite",
+   "pass": true,
+   "n_cells": 32
+  },
+  {
+   "check": "prediction correctness/confidence present for 100% of explained graphs",
+   "pass": true,
+   "nulls": {
+    "pred_correct": 0,
+    "pred_confidence": 0,
+    "y_true": 0,
+    "pred_label": 0,
+    "prob_class1": 0
+   },
+   "n_rows": 20496
+  },
+  {
+   "check": "model test accuracy >= 0.80 (Fluoride-Carbonyl >= 0.75)",
+   "pass": true,
+   "accuracies": {
+    "alkane_carbonyl/gcn": 0.9466666666666667,
+    "alkane_carbonyl/gin": 0.9511111111111111,
+    "benzene/gcn": 0.85,
+    "benzene/gin": 0.8854166666666666,
+    "fluoride_carbonyl/gcn": 0.8437139561707035,
+    "fluoride_carbonyl/gin": 0.8662053056516724,
+    "mutagenicity/gcn": 0.884180790960452,
+    "mutagenicity/gin": 0.9548022598870056
+   },
+   "below_bar": {},
+   "bars": {
+    "benzene": 0.8,
+    "alkane_carbonyl": 0.8,
+    "mutagenicity": 0.8,
+    "fluoride_carbonyl": 0.75
+   },
+   "per_cell": {
+    "alkane_carbonyl/gcn": {
+     "test_accuracy": 0.9466666666666667,
+     "test_f1_positive": 0.9240506329113924,
+     "test_balanced_accuracy": 0.9533333333333334,
+     "test_auroc": 0.963911111111111,
+     "majority_class_rate": 0.6666666666666666,
+     "beats_majority_class": true,
+     "bar": 0.8,
+     "clears_bar": true
+    },
+    "alkane_carbonyl/gin": {
+     "test_accuracy": 0.9511111111111111,
+     "test_f1_positive": 0.9299363057324841,
+     "test_balanced_accuracy": 0.9566666666666667,
+     "test_auroc": 0.9624888888888888,
+     "majority_class_rate": 0.6666666666666666,
+     "beats_majority_class": true,
+     "bar": 0.8,
+     "clears_bar": true
+    },
+    "benzene/gcn": {
+     "test_accuracy": 0.85,
+     "test_f1_positive": 0.8594847775175644,
+     "test_balanced_accuracy": 0.85,
+     "test_auroc": 0.9210083333333333,
+     "majority_class_rate": 0.5,
+     "beats_majority_class": true,
+     "bar": 0.8,
+     "clears_bar": true
+    },
+    "benzene/gin": {
+     "test_accuracy": 0.8854166666666666,
+     "test_f1_positive": 0.8866913885455294,
+     "test_balanced_accuracy": 0.8854166666666666,
+     "test_auroc": 0.9533569444444446,
+     "majority_class_rate": 0.5,
+     "beats_majority_class": true,
+     "bar": 0.8,
+     "clears_bar": true
+    },
+    "fluoride_carbonyl/gcn": {
+     "test_accuracy": 0.8437139561707035,
+     "test_f1_positive": 0.6008836524300442,
+     "test_balanced_accuracy": 0.7749440741548028,
+     "test_auroc": 0.8635845311980176,
+     "majority_class_rate": 0.8241061130334487,
+     "beats_majority_class": true,
+     "bar": 0.75,
+     "clears_bar": true
+    },
+    "fluoride_carbonyl/gin": {
+     "test_accuracy": 0.8662053056516724,
+     "test_f1_positive": 0.6759776536312849,
+     "test_balanced_accuracy": 0.8375890511535065,
+     "test_auroc": 0.923734355103305,
+     "majority_class_rate": 0.8241061130334487,
+     "beats_majority_class": true,
+     "bar": 0.75,
+     "clears_bar": true
+    },
+    "mutagenicity/gcn": {
+     "test_accuracy": 0.884180790960452,
+     "test_f1_positive": 0.8530465949820788,
+     "test_balanced_accuracy": 0.8940472898230089,
+     "test_auroc": 0.9550954092920354,
+     "majority_class_rate": 0.6384180790960452,
+     "beats_majority_class": true,
+     "bar": 0.8,
+     "clears_bar": true
+    },
+    "mutagenicity/gin": {
+     "test_accuracy": 0.9548022598870056,
+     "test_f1_positive": 0.9384615384615385,
+     "test_balanced_accuracy": 0.9544386061946903,
+     "test_auroc": 0.9861725663716814,
+     "majority_class_rate": 0.6384180790960452,
+     "beats_majority_class": true,
+     "bar": 0.8,
+     "clears_bar": true
+    }
+   },
+   "note": "Accuracy alone is not a sufficient quality signal on an imbalanced split. Fluoride-Carbonyl's test split is 82.41% negative, so a majority-class predictor scores 0.8241 with positive-class F1 0.0 and misclassifies every one of the 305 explained graphs, all of which are ground-truth-positive. Read test_accuracy together with majority_class_rate and test_f1_positive.",
+   "weak_model_cells": []
+  },
+  {
+   "check": "no explainer failures",
+   "pass": true,
+   "n_error_rows": 0,
+   "error_examples": []
+  },
+  {
+   "check": "combined parquet reloads with the documented schema",
+   "pass": true,
+   "n_rows": 20496,
+   "columns": [
+    "dataset",
+    "graph_index",
+    "model",
+    "explainer",
+    "split",
+    "test_position",
+    "n_nodes",
+    "n_edges",
+    "gt_n_exp",
+    "gt_nodes",
+    "gt_nodes_first",
+    "gt_size_min",
+    "gt_size_max",
+    "graph_hash",
+    "zinc_id",
+    "code_version",
+    "seed",
+    "y_true",
+    "pred_label",
+    "pred_correct",
+    "pred_confidence",
+    "prob_class1",
+    "edge_auroc",
+    "explainer_variant",
+    "node_imp",
+    "topk_nodes",
+    "native_set",
+    "gea",
+    "gea_k",
+    "gea_native_set",
+    "gef",
+    "gef_kl_rev",
+    "gef_zero_top",
+    "gef_top_k",
+    "runtime_s",
+    "status"
+   ]
+  }
+ ],
+ "sanity_vs_published": {
+  "reference": "FORGE (Shafi et al., AAAI 2025, arXiv:2406.03253) baseline GEA table",
+  "note": "different checkpoints, split and explained-graph population; compared as an order-of-magnitude band (ratio within [0.2, 5]) rather than a reproduction",
+  "n_compared": 24,
+  "n_within_band": 20,
+  "per_cell": [
+   {
+    "dataset": "alkane_carbonyl",
+    "model": "gcn",
+    "explainer": "gnnexplainer",
+    "gea_mean": 0.1137027417027417,
+    "forge_reference": 0.201,
+    "ratio": 0.5656852821031925,
+    "same_order_of_magnitude": true
+   },
+   {
+    "dataset": "alkane_carbonyl",
+    "model": "gcn",
+    "explainer": "pgexplainer",
+    "gea_mean": 0.2091313131313131,
+    "forge_reference": 0.104,
+    "ratio": 2.010878010878011,
+    "same_order_of_magnitude": true
+   },
+   {
+    "dataset": "alkane_carbonyl",
+    "model": "gcn",
+    "explainer": "subgraphx",
+    "gea_mean": 0.2355844155844156,
+    "forge_reference": 0.061,
+    "ratio": 3.862039599744518,
+    "same_order_of_magnitude": true
+   },
+   {
+    "dataset": "alkane_carbonyl",
+    "model": "gin",
+    "explainer": "gnnexplainer",
+    "gea_mean": 0.10301698301698302,
+    "forge_reference": 0.201,
+    "ratio": 0.5125223035670796,
+    "same_order_of_magnitude": true
+   },
+   {
+    "dataset": "alkane_carbonyl",
+    "model": "gin",
+    "explainer": "pgexplainer",
+    "gea_mean": 0.3686031746031746,
+    "forge_reference": 0.104,
+    "ratio": 3.5442612942612945,
+    "same_order_of_magnitude": true
+   },
+   {
+    "dataset": "alkane_carbonyl",
+    "model": "gin",
+    "explainer": "subgraphx",
+    "gea_mean": 0.22821933621933624,
+    "forge_reference": 0.061,
+    "ratio": 3.7413005937596107,
+    "same_order_of_magnitude": true
+   },
+   {
+    "dataset": "benzene",
+    "model": "gcn",
+    "explainer": "gnnexplainer",
+    "gea_mean": 0.3635947893266005,
+    "forge_reference": 0.621,
+    "ratio": 0.5854988555983905,
+    "same_order_of_magnitude": true
+   },
+   {
+    "dataset": "benzene",
+    "model": "gcn",
+    "explainer": "pgexplainer",
+    "gea_mean": 0.07697070399413582,
+    "forge_reference": 0.535,
+    "ratio": 0.14387047475539405,
+    "same_order_of_magnitude": false
+   },
+   {
+    "dataset": "benzene",
+    "model": "gcn",
+    "explainer": "subgraphx",
+    "gea_mean": 0.6003297295955965,
+    "forge_reference": 0.622,
+    "ratio": 0.9651603369704124,
+    "same_order_of_magnitude": true
+   },
+   {
+    "dataset": "benzene",
+    "model": "gin",
+    "explainer": "gnnexplainer",
+    "gea_mean": 0.23417758868263647,
+    "forge_reference": 0.621,
+    "ratio": 0.37709756631664487,
+    "same_order_of_magnitude": true
+   },
+   {
+    "dataset": "benzene",
+    "model": "gin",
+    "explainer": "pgexplainer",
+    "gea_mean": 0.5695800560808301,
+    "forge_reference": 0.535,
+    "ratio": 1.0646356188426729,
+    "same_order_of_magnitude": true
+   },
+   {
+    "dataset": "benzene",
+    "model": "gin",
+    "explainer": "subgraphx",
+    "gea_mean": 0.751588520854068,
+    "forge_reference": 0.622,
+    "ratio": 1.2083416733988233,
+    "same_order_of_magnitude": true
+   },
+   {
+    "dataset": "fluoride_carbonyl",
+    "model": "gcn",
+    "explainer": "gnnexplainer",
+    "gea_mean": 0.14682033599102065,
+    "forge_reference": 0.134,
+    "ratio": 1.0956741491867212,
+    "same_order_of_magnitude": true
+   },
+   {
+    "dataset": "fluoride_carbonyl",
+    "model": "gcn",
+    "explainer": "pgexplainer",
+    "gea_mean": 0.14284870642838643,
+    "forge_reference": 0.178,
+    "ratio": 0.8025208226313845,
+    "same_order_of_magnitude": true
+   },
+   {
+    "dataset": "fluoride_carbonyl",
+    "model": "gcn",
+    "explainer": "subgraphx",
+    "gea_mean": 0.2011850276472415,
+    "forge_reference": 0.045,
+    "ratio": 4.4707783921609225,
+    "same_order_of_magnitude": true
+   },
+   {
+    "dataset": "fluoride_carbonyl",
+    "model": "gin",
+    "explainer": "gnnexplainer",
+    "gea_mean": 0.17629503305009572,
+    "forge_reference": 0.134,
+    "ratio": 1.3156345750007143,
+    "same_order_of_magnitude": true
+   },
+   {
+    "dataset": "fluoride_carbonyl",
+    "model": "gin",
+    "explainer": "pgexplainer",
+    "gea_mean": 0.5987034641133002,
+    "forge_reference": 0.178,
+    "ratio": 3.3635026073780914,
+    "same_order_of_magnitude": true
+   },
+   {
+    "dataset": "fluoride_carbonyl",
+    "model": "gin",
+    "explainer": "subgraphx",
+    "gea_mean": 0.31614847811569124,
+    "forge_reference": 0.045,
+    "ratio": 7.02552173590425,
+    "same_order_of_magnitude": false
+   },
+   {
+    "dataset": "mutagenicity",
+    "model": "gcn",
+    "explainer": "gnnexplainer",
+    "gea_mean": 0.09019574175824176,
+    "forge_reference": 0.234,
+    "ratio": 0.385451887855734,
+    "same_order_of_magnitude": true
+   },
+   {
+    "dataset": "mutagenicity",
+    "model": "gcn",
+    "explainer": "pgexplainer",
+    "gea_mean": 0.007452876984126984,
+    "forge_reference": 0.161,
+    "ratio": 0.046291161392093064,
+    "same_order_of_magnitude": false
+   },
+   {
+    "dataset": "mutagenicity",
+    "model": "gcn",
+    "explainer": "subgraphx",
+    "gea_mean": 0.26599195075757576,
+    "forge_reference": 0.057,
+    "ratio": 4.666525451887294,
+    "same_order_of_magnitude": true
+   },
+   {
+    "dataset": "mutagenicity",
+    "model": "gin",
+    "explainer": "gnnexplainer",
+    "gea_mean": 0.11652123917748917,
+    "forge_reference": 0.234,
+    "ratio": 0.49795401357901353,
+    "same_order_of_magnitude": true
+   },
+   {
+    "dataset": "mutagenicity",
+    "model": "gin",
+    "explainer": "pgexplainer",
+    "gea_mean": 0.034449404761904764,
+    "forge_reference": 0.161,
+    "ratio": 0.2139714581484768,
+    "same_order_of_magnitude": true
+   },
+   {
+    "dataset": "mutagenicity",
+    "model": "gin",
+    "explainer": "subgraphx",
+    "gea_mean": 0.39361979166666666,
+    "forge_reference": 0.057,
+    "ratio": 6.905610380116959,
+    "same_order_of_magnitude": false
+   }
+  ]
+ },
+ "signal_vs_random_control": {
+  "note": "GEA minus the uniform-random attribution control on the same graphs, reported configuration per explainer. A cell at or below 0 means the explainer's node ranking carries no advantage over chance on this metric.",
+  "cells_above_control": 12,
+  "cells_total": 24,
+  "per_explainer": {
+   "gnnexplainer": {
+    "cells_above_control": 1,
+    "cells_total": 8,
+    "min_delta": -0.06271229176852686,
+    "max_delta": 0.12533202022983628
+   },
+   "pgexplainer": {
+    "cells_above_control": 4,
+    "cells_total": 8,
+    "min_delta": -0.1612920651026284,
+    "max_delta": 0.3891708363537527
+   },
+   "subgraphx": {
+    "cells_above_control": 7,
+    "cells_total": 8,
+    "min_delta": -0.008347600112306008,
+    "max_delta": 0.5133257517573038
+   }
+  },
+  "per_cell": [
+   {
+    "dataset": "alkane_carbonyl",
+    "model": "gcn",
+    "explainer": "gnnexplainer",
+    "gea_mean": 0.1137027417027417,
+    "random_control_gea": 0.14169312169312168,
+    "gea_over_control": -0.027990379990379982,
+    "edge_auroc_mean": 0.5465219787381306
+   },
+   {
+    "dataset": "alkane_carbonyl",
+    "model": "gcn",
+    "explainer": "pgexplainer",
+    "gea_mean": 0.2091313131313131,
+    "random_control_gea": 0.14169312169312168,
+    "gea_over_control": 0.06743819143819144,
+    "edge_auroc_mean": 0.9062998145440175
+   },
+   {
+    "dataset": "alkane_carbonyl",
+    "model": "gcn",
+    "explainer": "subgraphx",
+    "gea_mean": 0.2355844155844156,
+    "random_control_gea": 0.14169312169312168,
+    "gea_over_control": 0.09389129389129391,
+    "edge_auroc_mean": NaN
+   },
+   {
+    "dataset": "alkane_carbonyl",
+    "model": "gin",
+    "explainer": "gnnexplainer",
+    "gea_mean": 0.10301698301698302,
+    "random_control_gea": 0.14169312169312168,
+    "gea_over_control": -0.03867613867613866,
+    "edge_auroc_mean": 0.6371896330036252
+   },
+   {
+    "dataset": "alkane_carbonyl",
+    "model": "gin",
+    "explainer": "pgexplainer",
+    "gea_mean": 0.3686031746031746,
+    "random_control_gea": 0.14169312169312168,
+    "gea_over_control": 0.22691005291005292,
+    "edge_auroc_mean": 0.9620427510873735
+   },
+   {
+    "dataset": "alkane_carbonyl",
+    "model": "gin",
+    "explainer": "subgraphx",
+    "gea_mean": 0.22821933621933624,
+    "random_control_gea": 0.14169312169312168,
+    "gea_over_control": 0.08652621452621456,
+    "edge_auroc_mean": NaN
+   },
+   {
+    "dataset": "benzene",
+    "model": "gcn",
+    "explainer": "gnnexplainer",
+    "gea_mean": 0.3635947893266005,
+    "random_control_gea": 0.23826276909676422,
+    "gea_over_control": 0.12533202022983628,
+    "edge_auroc_mean": 0.6630663463829122
+   },
+   {
+    "dataset": "benzene",
+    "model": "gcn",
+    "explainer": "pgexplainer",
+    "gea_mean": 0.07697070399413582,
+    "random_control_gea": 0.23826276909676422,
+    "gea_over_control": -0.1612920651026284,
+    "edge_auroc_mean": 0.05472603059212056
+   },
+   {
+    "dataset": "benzene",
+    "model": "gcn",
+    "explainer": "subgraphx",
+    "gea_mean": 0.6003297295955965,
+    "random_control_gea": 0.23826276909676422,
+    "gea_over_control": 0.36206696049883225,
+    "edge_auroc_mean": NaN
+   },
+   {
+    "dataset": "benzene",
+    "model": "gin",
+    "explainer": "gnnexplainer",
+    "gea_mean": 0.23417758868263647,
+    "random_control_gea": 0.23826276909676422,
+    "gea_over_control": -0.004085180414127754,
+    "edge_auroc_mean": 0.7198906483058218
+   },
+   {
+    "dataset": "benzene",
+    "model": "gin",
+    "explainer": "pgexplainer",
+    "gea_mean": 0.5695800560808301,
+    "random_control_gea": 0.23826276909676422,
+    "gea_over_control": 0.3313172869840658,
+    "edge_auroc_mean": 0.7519233662726056
+   },
+   {
+    "dataset": "benzene",
+    "model": "gin",
+    "explainer": "subgraphx",
+    "gea_mean": 0.751588520854068,
+    "random_control_gea": 0.23826276909676422,
+    "gea_over_control": 0.5133257517573038,
+    "edge_auroc_mean": NaN
+   },
+   {
+    "dataset": "fluoride_carbonyl",
+    "model": "gcn",
+    "explainer": "gnnexplainer",
+    "gea_mean": 0.14682033599102065,
+    "random_control_gea": 0.2095326277595475,
+    "gea_over_control": -0.06271229176852686,
+    "edge_auroc_mean": 0.4587366026161637
+   },
+   {
+    "dataset": "fluoride_carbonyl",
+    "model": "gcn",
+    "explainer": "pgexplainer",
+    "gea_mean": 0.14284870642838643,
+    "random_control_gea": 0.2095326277595475,
+    "gea_over_control": -0.06668392133116108,
+    "edge_auroc_mean": 0.3577929811318684
+   },
+   {
+    "dataset": "fluoride_carbonyl",
+    "model": "gcn",
+    "explainer": "subgraphx",
+    "gea_mean": 0.2011850276472415,
+    "random_control_gea": 0.2095326277595475,
+    "gea_over_control": -0.008347600112306008,
+    "edge_auroc_mean": 0.4563928556104639
+   },
+   {
+    "dataset": "fluoride_carbonyl",
+    "model": "gin",
+    "explainer": "gnnexplainer",
+    "gea_mean": 0.17629503305009572,
+    "random_control_gea": 0.2095326277595475,
+    "gea_over_control": -0.033237594709451784,
+    "edge_auroc_mean": 0.5211980121317891
+   },
+   {
+    "dataset": "fluoride_carbonyl",
+    "model": "gin",
+    "explainer": "pgexplainer",
+    "gea_mean": 0.5987034641133002,
+    "random_control_gea": 0.2095326277595475,
+    "gea_over_control": 0.3891708363537527,
+    "edge_auroc_mean": 0.8692017340346487
+   },
+   {
+    "dataset": "fluoride_carbonyl",
+    "model": "gin",
+    "explainer": "subgraphx",
+    "gea_mean": 0.31614847811569124,
+    "random_control_gea": 0.2095326277595475,
+    "gea_over_control": 0.10661585035614374,
+    "edge_auroc_mean": NaN
+   },
+   {
+    "dataset": "mutagenicity",
+    "model": "gcn",
+    "explainer": "gnnexplainer",
+    "gea_mean": 0.09019574175824176,
+    "random_control_gea": 0.1286960001803752,
+    "gea_over_control": -0.038500258422133435,
+    "edge_auroc_mean": 0.5897053256661879
+   },
+   {
+    "dataset": "mutagenicity",
+    "model": "gcn",
+    "explainer": "pgexplainer",
+    "gea_mean": 0.007452876984126984,
+    "random_control_gea": 0.1286960001803752,
+    "gea_over_control": -0.1212431231962482,
+    "edge_auroc_mean": 0.03969422625575262
+   },
+   {
+    "dataset": "mutagenicity",
+    "model": "gcn",
+    "explainer": "subgraphx",
+    "gea_mean": 0.26599195075757576,
+    "random_control_gea": 0.1286960001803752,
+    "gea_over_control": 0.13729595057720057,
+    "edge_auroc_mean": NaN
+   },
+   {
+    "dataset": "mutagenicity",
+    "model": "gin",
+    "explainer": "gnnexplainer",
+    "gea_mean": 0.11652123917748917,
+    "random_control_gea": 0.1286960001803752,
+    "gea_over_control": -0.012174761002886017,
+    "edge_auroc_mean": 0.6015811193390892
+   },
+   {
+    "dataset": "mutagenicity",
+    "model": "gin",
+    "explainer": "pgexplainer",
+    "gea_mean": 0.034449404761904764,
+    "random_control_gea": 0.1286960001803752,
+    "gea_over_control": -0.09424659541847043,
+    "edge_auroc_mean": 0.6494875671626625
+   },
+   {
+    "dataset": "mutagenicity",
+    "model": "gin",
+    "explainer": "subgraphx",
+    "gea_mean": 0.39361979166666666,
+    "random_control_gea": 0.1286960001803752,
+    "gea_over_control": 0.26492379148629147,
+    "edge_auroc_mean": NaN
+   }
+  ]
+ }
+}
