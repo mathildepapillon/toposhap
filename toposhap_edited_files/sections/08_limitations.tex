@@ -1,0 +1,11 @@
+% ======================================================================
+% Section 8 -- Limitations (one paragraph, concise). No em dashes.
+% ======================================================================
+\section{Limitations and Conclusion}
+\label{sec:limitations}
+
+% to reach the 9p for the PPP
+% \method is the first explainer for TNNs on ranked combinatorial complexes, explaining which cells drive a prediction and which neighborhoods drive a model's performance. \method has two main limitations pointing to avenues for future work. First, although greedy pruning is far cheaper than search-based explainers at benchmark scale (\cref{tab:graph-benchmarks}), it evaluates $O(n^{2})$ coalitions in the number of cells; attribution costs $O(Tn)$ model evaluations at $T$ sampling passes, but the greedy search itself would need truncation or sampling on complexes with thousands of cells. Second, the framework's supervised evaluation on topological datasets is currently limited because explanation-annotated datasets are graph-based, with synthetic hypergraph benchmarks emerging \citep{su2024shypx}; annotated benchmarks on ranked complexes would support further progress on interpretability in the field.
+
+\method brings prediction and architecture explanations into a unified explainability framework for Topological Deep Learning, providing insight into model predictions and performance. We conclude by describing two limitations which are also promising avenues for future work. First, scaling to larger complexes requires more efficient coalition evaluation. Although greedy pruning is substantially cheaper than SubgraphX on our benchmarks
+(\cref{tab:graph-benchmarks}), it requires $O(n^{2})$ model evaluations for $n$ cells, while attribution requires $O(Tn)$ evaluations for $T$ sampling passes. Truncated or sampled search offers a path toward complexes with thousands of cells. Second, our evaluation against ground truth explanations remains graph-based in this work. Developing explanation-annotated benchmarks on general combinatorial complexes, building on graph benchmarks and emerging synthetic hypergraph benchmarks \citep{su2024shypx}, will be paramount for developing better explanations for, and thus more trustworthy, Topological Deep Learning.

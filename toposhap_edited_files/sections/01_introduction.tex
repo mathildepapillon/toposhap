@@ -1,0 +1,30 @@
+% ======================================================================
+% Section 1 -- Introduction (~1.25 pp incl. Fig 1)
+% Binding: "what explainability buys practitioners"; "neighborhoods",
+% never "relations"; no em dashes; short sentences; molecule gloss
+% appears once, TopoTune parenthetical style.
+% ======================================================================
+\section{Introduction}
+\label{sec:introduction}
+
+Graph neural networks (GNNs) learn from relational data, such as molecules and social networks \citep{kipf2017semisupervised}. They achieve this by explicitly modeling pairwise interactions between the nodes (atoms, people) of the data. However, real-world systems often exhibit interactions that are inherently multiway. For instance, atoms can form rings which have critical functional roles; people can form groups whose nature goes beyond pairwise relationships. These higher-order interactions are not explicitly represented in standard GNNs. Topological neural networks (TNNs) address this limitation by explicitly modeling higher-order structure \citep{hajij2023tdl,papillon2023architectures}. In particular, topological deep learning (TDL) uses \emph{combinatorial complexes} to organize interactions into \emph{cells} of different \emph{ranks}: atoms are rank-0 cells, bonds are rank-1 cells, and rings are rank-2 cells. At each layer, TNNs update each cell feature based on the features of its neighboring cells. On standardized topological benchmarks, TNNs often match or exceed GNN accuracy \citep{telyatnikov2024topobench}.
+
+As TDL moves towards domain-specific applications like chemistry and materials science \citep{papamarkou2024position}, practitioners face two black box challenges. First, they need to understand which structures drive these predictions. For a molecular model, for example, one may be compelled to reveal the chemical features and molecular structures the model deems relevant to the target property. Second, TDL practitioners do not know \textit{a priori} what topological relations, or \textit{neighborhoods}, matter for their task. Current TDL pipelines rely on an expensive hyperparameter search to identify the best architecture \citep{papillon2025topotune,hopse2025}. This is not only expensive but also fails to provide practical insight as to why a specific architecture worked better. 
+
+Machine learning \emph{explainers} are a promising avenue to opening these black boxes. They investigate model behavior by attributing predictions to parts of the input \citep{doshivelez2017rigorous,ribeiro2016trust,lundberg2017shap}. However, existing post-hoc explainers are limited to graph \citep{sinha2025forge,ying2019gnnexplainer,luo2020parameterized,yuan2021subgraphx,muschalik2024graphshapiq} and hypergraph \citep{maleki2023hyperex,su2024shypx} neural networks. We propose the first explainer for general topological domains, encompassing both prediction and performance explanation. 
+
+\paragraph{Contributions.}
+We introduce \method, a unified game-theoretic framework for explaining TDL models, which attributes both predictions and performance to the cells and neighborhoods of a combinatorial complex. \method is available at \href{https://github.com/mathildepapillon/toposhap}{github.com/mathildepapillon/toposhap}.
+\begin{itemize}[leftmargin=*]
+\item \textbf{We explain predictions across ranks.} We formulate a cooperative game in which cells of every rank are players, producing per-cell Shapley attributions and compact explanations. Across both outputs, we match or outperform graph explanation methods on GraphXAI benchmarks. We also propose the first explanations of topological benchmark datasets going beyond hypergraphs. We call this component \method-cell.
+\item \textbf{We use cell attributions to improve topological features.} Rank-specific attributions show that topological features, typically built by aggregating node features, retain information about lower-rank cells. Using this finding, we design new topological features and match or improve explanation recovery on GraphXAI benchmarks.
+\item \textbf{We explain performance and use it to select architectures.} We formulate a second game in which a model's neighborhood-specific modules are players and test performance is the payoff. We propose an inexpensive backward-elimination procedure that selects neighborhood-specific modules for full training. This reduces training compute by up to an order of magnitude relative to standard TDL training sweeps. We call this component \method-neighbor.
+\end{itemize}
+
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=\linewidth]{figures/toposhap_overview.pdf}
+  \caption{\textbf{\method explains a Topological Neural Network's predictions and performance.}
+  \textbf{A.}~\method-cell considers the cells of the input combinatorial complex as players (1). Given certain coalitions $S_i$ of those players (2), it evaluates the model's predictions (3). Averaging marginal contributions over coalitions outputs one Shapley value per cell and a sub-complex best preserving the prediction (4). \textbf{B.}~\method-neighbor manipulates the neighborhoods that contribute to feature updates in the TNN (1). It briefly trains a model with all neighborhoods, then masks coalitions of them (2) to measure neighborhood impact on test performance (3). Averaging marginal contributions over coalitions outputs one attribution value per neighborhood and a subset of that preserves model performance (4).}
+  \label{fig:overview}
+\end{figure}

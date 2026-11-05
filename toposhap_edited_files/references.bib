@@ -1,0 +1,476 @@
+% ======================================================================
+% references.bib -- TopoSHAP (ICLR 2027 submission)
+% Entries marked "TODO verify" need bibliographic verification before
+% submission (venue/year/pages were filled from memory).
+% ======================================================================
+
+% ------------------------------------------------ game theory / Shapley
+
+@incollection{shapley1953value,
+  author    = {Shapley, Lloyd S.},
+  title     = {A Value for $n$-Person Games},
+  booktitle = {Contributions to the Theory of Games, Volume II},
+  editor    = {Kuhn, Harold W. and Tucker, Albert W.},
+  series    = {Annals of Mathematics Studies},
+  volume    = {28},
+  pages     = {307--317},
+  publisher = {Princeton University Press},
+  address   = {Princeton, NJ},
+  year      = {1953}
+}
+
+@article{grabisch1999axiomatic,
+  author  = {Grabisch, Michel and Roubens, Marc},
+  title   = {An Axiomatic Approach to the Concept of Interaction Among Players in Cooperative Games},
+  journal = {International Journal of Game Theory},
+  volume  = {28},
+  number  = {4},
+  pages   = {547--565},
+  year    = {1999}
+}
+
+@inproceedings{feng2019Hypergraph,
+  title     = {Hypergraph Neural Networks},
+  author    = {Feng, Yifan and You, Haoxuan and Zhang, Zizhao and Ji, Rongrong and Gao, Yue},
+  booktitle = {Proceedings of the Thirty-Third AAAI Conference on Artificial Intelligence},
+  pages     = {3558--3565},
+  year      = {2019},
+  publisher = {AAAI Press},
+  doi       = {10.1609/aaai.v33i01.33013558},
+  url       = {https://ojs.aaai.org/index.php/AAAI/article/view/4235}
+}
+
+@inproceedings{ebli2020simplicial,
+  title = {Simplicial Neural Networks},
+  author = {Ebli, Stefania and Defferrard, Michaël and Spreemann, Gard},
+  booktitle = {Topological Data Analysis and Beyond workshop at NeurIPS},
+  year = {2020},
+  archiveprefix = {arXiv},
+  eprint = {2010.03633},
+  url = {https://arxiv.org/abs/2010.03633},
+}
+
+@article{nemhauser1978analysis,
+  author  = {Nemhauser, George L. and Wolsey, Laurence A. and Fisher, Marshall L.},
+  title   = {An Analysis of Approximations for Maximizing Submodular Set Functions---{I}},
+  journal = {Mathematical Programming},
+  volume  = {14},
+  number  = {1},
+  pages   = {265--294},
+  year    = {1978}
+}
+
+@article{fryer2021shapley,
+author = {Fryer, Daniel and Strumke, Inga and Nguyen, Hien},
+year = {2021},
+month = {01},
+pages = {144352-144360},
+title = {Shapley Values for Feature Selection: The Good, the Bad, and the Axioms},
+volume = {9},
+journal = {IEEE Access},
+doi = {10.1109/ACCESS.2021.3119110}
+}
+
+@inproceedings{sinha2025forge,
+author = {Sinha, Akshit and Vennam, Sreeram and Sharma, Charu and Kumaraguru, Ponnurangam},
+title = {Higher order structures for graph explanations},
+year = {2025},
+isbn = {978-1-57735-897-8},
+publisher = {AAAI Press},
+url = {https://doi.org/10.1609/aaai.v39i19.34260},
+doi = {10.1609/aaai.v39i19.34260},
+abstract = {Graph Neural Networks (GNNs) have emerged as powerful tools for learning representations of graph-structured data, demonstrating remarkable performance across various tasks. Recognizing their importance, there has been extensive research focused on explaining GNN predictions, aiming to enhance their interpretability and trustworthiness. However, GNNs and their explainers face a notable challenge: graphs are primarily designed to model pair-wise relationships between nodes, which can make it tough to capture higher-order, multi-node interactions. This characteristic can pose difficulties for existing explainers in fully representing multi-node relationships. To address this gap, we present Framework For Higher-Order Representations In Graph Explanations (FORGE), a framework that enables graph explainers to capture such interactions by incorporating higher-order structures, resulting in more accurate and faithful explanations. Extensive evaluation shows that on average real-world datasets from the GraphXAI benchmark and synthetic datasets across various graph explainers, FORGE improves average explanation accuracy by 1.9x and 2.25x, respectively. We perform ablation studies to confirm the importance of higher-order relations in improving explanations, while our scalability analysis demonstrates FORGE's efficacy on large graphs.},
+booktitle = {Proceedings of the Thirty-Ninth AAAI Conference on Artificial Intelligence and Thirty-Seventh Conference on Innovative Applications of Artificial Intelligence and Fifteenth Symposium on Educational Advances in Artificial Intelligence},
+articleno = {2287},
+numpages = {8},
+series = {AAAI'25/IAAI'25/EAAI'25}
+}
+
+% ------------------------------------------------ GNN explainability
+
+@inproceedings{ying2019gnnexplainer,
+  author    = {Ying, Zhitao and Bourgeois, Dylan and You, Jiaxuan and Zitnik, Marinka and Leskovec, Jure},
+  title     = {{GNNExplainer}: Generating Explanations for Graph Neural Networks},
+  booktitle = {Advances in Neural Information Processing Systems (NeurIPS)},
+  volume    = {32},
+  year      = {2019}
+}
+
+@inproceedings{luo2020parameterized,
+  author    = {Luo, Dongsheng and Cheng, Wei and Xu, Dongkuan and Yu, Wenchao and Zong, Bo and Chen, Haifeng and Zhang, Xiang},
+  title     = {Parameterized Explainer for Graph Neural Network},
+  booktitle = {Advances in Neural Information Processing Systems (NeurIPS)},
+  volume    = {33},
+  year      = {2020}
+}
+
+@inproceedings{yuan2021subgraphx,
+  author    = {Yuan, Hao and Yu, Haiyang and Wang, Jie and Li, Kang and Ji, Shuiwang},
+  title     = {On Explainability of Graph Neural Networks via Subgraph Explorations},
+  booktitle = {Proceedings of the 38th International Conference on Machine Learning (ICML)},
+  pages     = {12241--12252},
+  year      = {2021}
+}
+
+@inproceedings{muschalik2024graphshapiq,
+  author    = {Muschalik, Maximilian and Fumagalli, Fabian and Frazzetto, Paolo and Strotherm, Janine and Hermes, Luca and Sperduti, Alessandro and H{\"u}llermeier, Eyke and Hammer, Barbara},
+  title     = {Exact Computation of Any-Order {Shapley} Interactions for Graph Neural Networks},
+  booktitle = {International Conference on Learning Representations (ICLR)},
+  year      = {2025}
+}
+% verified 2026-08-28: ICLR 2025, arXiv:2501.16944, author list from arXiv.
+
+
+@article{agarwal2023graphxai,
+  author  = {Agarwal, Chirag and Queen, Owen and Lakkaraju, Himabindu and Zitnik, Marinka},
+  title   = {Evaluating Explainability for Graph Neural Networks},
+  journal = {Scientific Data},
+  volume  = {10},
+  number  = {144},
+  year    = {2023}
+}
+
+% ------------------------------------------------ TDL architectures & tools
+
+@inproceedings{bodnar2021cwn,
+ author = {Bodnar, Cristian and Frasca, Fabrizio and Otter, Nina and Wang, Yuguang and Li\`{o}, Pietro and Montufar, Guido and Bronstein, Michael},
+ booktitle = {Advances in Neural Information Processing Systems},
+ editor = {M. Ranzato and A. Beygelzimer and Y. Dauphin and P.S. Liang and J. Wortman Vaughan},
+ pages = {2625--2640},
+ publisher = {Curran Associates, Inc.},
+ title = {Weisfeiler and {Lehman} Go Cellular: {CW} Networks},
+ url = {https://proceedings.neurips.cc/paper_files/paper/2021/file/157792e4abb490f99dbd738483e0d2d4-Paper.pdf},
+ volume = {34},
+ year = {2021}
+}
+@article{hajij2023tdl,
+  author  = {Hajij, Mustafa and Zamzmi, Ghada and Papamarkou, Theodore and Miolane, Nina and Guzm{\'a}n-S{\'a}enz, Aldo and Ramamurthy, Karthikeyan Natesan and Birdal, Tolga and Dey, Tamal K. and Mukherjee, Soham and Samaga, Shreyas N. and Livesay, Neal and Walters, Robin and Rosen, Paul and Schaub, Michael T.},
+  title   = {Topological Deep Learning: Going Beyond Graph Data},
+  journal = {arXiv preprint arXiv:2206.00606},
+  year    = {2023}
+}
+% TODO verify: author list of the combinatorial-complexes position paper (long collaboration).
+
+@inproceedings{papamarkou2024position,
+  author    = {Papamarkou, Theodore and Birdal, Tolga and Bronstein, Michael M. and Carlsson, Gunnar and Curry, Justin and Gao, Yue and Hajij, Mustafa and Kwitt, Roland and Li{\`o}, Pietro and Lorenzo, Paolo Di and Maroulas, Vasileios and Miolane, Nina and Nasrin, Farzana and Ramamurthy, Karthikeyan Natesan and Rieck, Bastian and Scardapane, Simone and Schaub, Michael T. and Veli{\v{c}}kovi{\'c}, Petar and Wang, Bei and Wang, Yusu and Wei, Guo-Wei and Zamzmi, Ghada},
+  title     = {Position: Topological Deep Learning is the New Frontier for Relational Learning},
+  booktitle = {Proceedings of the 41st International Conference on Machine Learning (ICML)},
+  year      = {2024}
+}
+
+@article{telyatnikov2024topobench,
+title={{TopoBench}: A Framework for Benchmarking Topological Deep Learning},
+author={Lev Telyatnikov and Guillermo Bern{\'a}rdez and Marco Montagna and Mustafa Hajij and Martin Carrasco and Pavlo Vasylenko and Mathilde Papillon and Ghada Zamzmi and Michael T. Schaub and Jonas Verhellen and Pavel Snopov and Bertran Miquel-Oliver and Manel Gil-Sorribes and Alexis Molina and Victor Guallar and Theodore Long and Julian Suk and Patryk Rygiel and Alexander V. Nikitin and Giordan Escalona and Michael Banf and Dominik Filipiak and Liliya Imasheva and Max Schattauer and Alvaro L. Martinez and Halley Fritze and Marissa Masden and Valentina S{\'a}nchez and Manuel Lecha and Andrea Cavallo and Claudio Battiloro and Matthew Piekenbrock and Mauricio Tec and George Dasoulas and Nina Miolane and Simone Scardapane and Theodore Papamarkou},
+journal={Journal of Data-centric Machine Learning Research},
+year={2025},
+url={https://openreview.net/forum?id=07sTzyEVtY},
+note={}
+}
+% verified 2026-08-28: arXiv:2406.06642, Telyatnikov et al.
+
+@inproceedings{papillon2025topotune,
+  author    = {Papillon, Mathilde and Bern{\'a}rdez, Guillermo and Battiloro, Claudio and Miolane, Nina},
+  title     = {{TopoTune}: A Framework for Generalized Combinatorial Complex Neural Networks},
+  booktitle = {Proceedings of the 42nd International Conference on Machine Learning (ICML)},
+  year      = {2025}
+}
+% verified 2026-08-28: ICML 2025, arXiv:2410.06530.
+
+@inproceedings{ballester2025mantra,
+  author    = {Ballester, Rub{\'e}n and R{\"o}ell, Ernst and Schmid, Daniel Bin and Alain, Mathieu and Escalera, Sergio and Casacuberta, Carles and Rieck, Bastian},
+  title     = {{MANTRA}: The Manifold Triangulations Assemblage},
+  booktitle = {International Conference on Learning Representations (ICLR)},
+  year      = {2025}
+}
+% verified 2026-08-27 (slides pass): ICLR 2025.
+
+@article{hopse2025,
+  title={{HOPSE}: Scalable Higher-Order Positional and Structural Encoder for Combinatorial Representations},
+  author={Bern{\'a}rdez, Guillermo and Montagna, Marco and Van Langendonck, Louis and Carrasco, Martin and Akbari, Amirreza and Cornelis, Louisa and Papillon, Mathilde and Barlet-Ros, Pere and Miolane, Nina and Telyatnikov, Lev},
+  journal={arXiv preprint arXiv:2505.15405},
+  year={2025}
+}
+@inproceedings{yang2022sccnn,
+  author    = {Yang, Maosheng and Isufi, Elvin and Leus, Geert},
+  title     = {Simplicial Convolutional Neural Networks},
+  booktitle = {IEEE International Conference on Acoustics, Speech and Signal Processing (ICASSP)},
+  pages     = {8847--8851},
+  year      = {2022}
+}
+% TODO verify: SCN vs SCCNN naming; there is also Yang & Isufi, "Convolutional Learning on Simplicial Complexes" (2023).
+
+@inproceedings{giusti2022can,
+author = {Giusti, Lorenzo and Battiloro, Claudio and Testa, Lucia and Di Lorenzo, Paolo and Sardellitti, S. and Barbarossa, S.},
+year = {2023},
+month = {06},
+pages = {1-8},
+title = {Cell Attention Networks},
+doi = {10.1109/IJCNN54540.2023.10191530},
+booktitle = {IJCNN}
+}
+
+@misc{hajij2020ccxn,
+  author = {Hajij, Mustafa and Istvan, Kyle and Zamzmi, Ghada},
+  title  = {Cell Complex Neural Networks},
+  year   = {2020},
+  note   = {NeurIPS Workshop on Topological Data Analysis and Beyond}
+}
+% TODO verify: CCXN workshop details.
+
+
+@article{castro2009polynomial,
+title = {Polynomial calculation of the {Shapley} value based on sampling},
+journal = {Computers \& Operations Research},
+volume = {36},
+number = {5},
+pages = {1726-1730},
+year = {2009},
+issn = {0305-0548},
+doi = {https://doi.org/10.1016/j.cor.2008.04.004},
+url = {https://www.sciencedirect.com/science/article/pii/S0305054808000804},
+author = {Javier Castro and Daniel Gómez and Juan Tejada},
+keywords = {Game theory, Shapley value, Sampling algorithm},
+abstract = {In this paper we develop a polynomial method based on sampling theory that can be used to estimate the Shapley value (or any semivalue) for cooperative games. Besides analyzing the complexity problem, we examine some desirable statistical properties of the proposed approach and provide some computational results.}
+}
+
+
+
+
+@inproceedings{lundberg2017shap,
+  author    = {Lundberg, Scott M. and Lee, Su-In},
+  title     = {A Unified Approach to Interpreting Model Predictions},
+  booktitle = {Advances in Neural Information Processing Systems (NeurIPS)},
+  year      = {2017}
+}
+
+@article{funke2023zorro,
+  author  = {Funke, Thorben and Khosla, Megha and Rathee, Mandeep and Anand, Avishek},
+  title   = {{Zorro}: Valid, Sparse, and Stable Explanations in Graph Neural Networks},
+  journal = {IEEE Transactions on Knowledge and Data Engineering},
+  volume  = {35},
+  number  = {8},
+  pages   = {8687--8698},
+  year    = {2023}
+}
+
+@article{strumbelj2010efficient,
+  author  = {{\v{S}}trumbelj, Erik and Kononenko, Igor},
+  title   = {An Efficient Explanation of Individual Classifications Using Game Theory},
+  journal = {Journal of Machine Learning Research},
+  volume  = {11},
+  pages   = {1--18},
+  year    = {2010}
+}
+
+%-------
+@inproceedings{you2022early,
+  title={Early-bird gcns: Graph-network co-optimization towards more efficient gcn training and inference via drawing early-bird lottery tickets},
+  author={You, Haoran and Lu, Zhihan and Zhou, Zijian and Fu, Yonggan and Lin, Yingyan},
+  booktitle={Proceedings of the AAAI Conference on Artificial Intelligence},
+  volume={36},
+  number={8},
+  pages={8910--8918},
+  year={2022}
+}
+
+
+@inproceedings{you2020earlybird,
+  author    = {You, Haoran and Li, Chaojian and Xu, Pengfei and Fu, Yonggan and Wang, Yue and Chen, Xiaohan and Lin, Yingyan and Wang, Zhangyang and Baraniuk, Richard G.},
+  title     = {Drawing Early-Bird Tickets: Towards More Efficient Training of Deep Networks},
+  booktitle = {International Conference on Learning Representations (ICLR)},
+  year      = {2020}
+}
+
+@inproceedings{frankle2020earlyphase,
+  author    = {Frankle, Jonathan and Schwab, David J. and Morcos, Ari S.},
+  title     = {The Early Phase of Neural Network Training},
+  booktitle = {International Conference on Learning Representations (ICLR)},
+  year      = {2020}
+}
+
+@article{li2018hyperband,
+  author    = {Li, Lisha and Jamieson, Kevin and DeSalvo, Giulia and Rostamizadeh, Afshin and Talwalkar, Ameet},
+  title     = {Hyperband: A Novel Bandit-Based Approach to Hyperparameter Optimization},
+  journal   = {Journal of Machine Learning Research},
+  volume    = {18},
+  number    = {185},
+  pages     = {1--52},
+  year      = {2018}
+}
+
+@inproceedings{mellor2021naswot,
+  author    = {Mellor, Joe and Turner, Jack and Storkey, Amos and Crowley, Elliot J.},
+  title     = {Neural Architecture Search without Training},
+  booktitle = {Proceedings of the 38th International Conference on Machine Learning (ICML)},
+  year      = {2021}
+}
+
+@inproceedings{sanchezlengeling2020evaluating,
+  title     = {Evaluating Attribution for Graph Neural Networks},
+  author    = {Sanchez-Lengeling, Benjamin and Wei, Jennifer and Lee, Brian and Reif, Emily and Wang, Peter and Qian, Wesley Wei and McCloskey, Kevin and Colwell, Lucy and Wiltschko, Alexander},
+  booktitle = {Advances in Neural Information Processing Systems},
+  volume    = {33},
+  pages     = {5898--5910},
+  year      = {2020},
+}
+
+@inproceedings{morris2020tudataset,
+  title     = {{TUDataset}: A collection of benchmark datasets for learning with graphs},
+  author    = {Morris, Christopher and Kriege, Nils M. and Bause, Franka and Kersting, Kristian and Mutzel, Petra and Neumann, Marion},
+  booktitle = {ICML 2020 Workshop on Graph Representation Learning and Beyond},
+  year      = {2020},
+  note      = {arXiv:2007.08663},
+}
+
+@inproceedings{yang2016planetoid,
+  title     = {Revisiting Semi-Supervised Learning with Graph Embeddings},
+  author    = {Yang, Zhilin and Cohen, William W. and Salakhutdinov, Ruslan},
+  booktitle = {Proceedings of the 33rd International Conference on Machine Learning},
+  pages     = {40--48},
+  year      = {2016},
+}
+
+@article{dwivedi2023benchmarking,
+  title     = {Benchmarking Graph Neural Networks},
+  author    = {Dwivedi, Vijay Prakash and Joshi, Chaitanya K. and Luu, Anh Tuan and Laurent, Thomas and Bengio, Yoshua and Bresson, Xavier},
+  journal   = {Journal of Machine Learning Research},
+  volume    = {24},
+  number    = {43},
+  pages     = {1--48},
+  year      = {2023},
+}
+
+@article{guyon2002rfe,
+  title   = {Gene selection for cancer classification using support vector machines},
+  author  = {Guyon, Isabelle and Weston, Jason and Barnhill, Stephen and Vapnik, Vladimir},
+  journal = {Machine Learning},
+  volume  = {46},
+  pages   = {389--422},
+  year    = {2002},
+}
+
+@book{hastie2009esl,
+  title     = {The Elements of Statistical Learning: Data Mining, Inference, and Prediction},
+  author    = {Hastie, Trevor and Tibshirani, Robert and Friedman, Jerome},
+  edition   = {2nd},
+  publisher = {Springer},
+  year      = {2009},
+}
+
+@article{papillon2023architectures,
+  title={Architectures of topological deep learning: A survey of message-passing topological neural networks},
+  author={Papillon, Mathilde and Sanborn, Sophia and Hajij, Mustafa and Miolane, Nina},
+  journal={arXiv preprint arXiv:2304.10031},
+  year={2023}
+}
+
+@inproceedings{
+kipf2017semisupervised,
+title={Semi-Supervised Classification with Graph Convolutional Networks},
+author={Thomas N. Kipf and Max Welling},
+booktitle={International Conference on Learning Representations},
+year={2017},
+url={https://openreview.net/forum?id=SJU4ayYgl}
+}
+
+@inproceedings{
+  xu2018how,
+  title={How Powerful are Graph Neural Networks?},
+  author={Keyulu Xu and Weihua Hu and Jure Leskovec and Stefanie Jegelka},
+  booktitle={International Conference on Learning Representations},
+  year={2019},
+  url={https://openreview.net/forum?id=ryGs6iA5Km}
+}
+
+%------NEW REFERENCES
+@inproceedings{sundararajan2017axiomatic,  title={Axiomatic attribution for deep networks},
+  author={Sundararajan, Mukund and Taly, Ankur and Yan, Qiqi},
+  booktitle={International conference on machine learning},
+  pages={3319--3328},
+  year={2017},
+  organization={PMLR}
+}
+
+@inproceedings{maleki2023hyperex,
+  title={Learning to Explain Hypergraph Neural Networks},
+  author={Maleki, Sepideh and Hajiramezanali, Ehsan and Scalia, Gabriele and Biancalani, Tommaso and Chuang, Kangway V.},
+  booktitle={2nd Annual Workshop on Topology, Algebra, and Geometry in Machine Learning (TAG-ML)},
+  year={2023},
+  url={https://openreview.net/forum?id=B6YeDatcFw}
+}
+
+@article{su2024shypx,
+  title={Explaining hypergraph neural networks: From local explanations to global concepts},
+  author={Su, Shiye and Duta, Iulia and Magister, Lucie Charlotte and Li{\`o}, Pietro},
+  journal={arXiv preprint arXiv:2410.07764},
+  year={2024}
+}
+@article{veglianti2026counterfactual,
+  title={Counterfactual Explanations for Hypergraph Neural Networks},
+  author={Veglianti, Fabiano and Antonelli, Lorenzo and Tolomei, Gabriele},
+  journal={arXiv preprint arXiv:2602.04360},
+  year={2026}
+}
+
+@inproceedings{duval2021graphsvx,
+  title={{GraphSVX}: {Shapley} value explanations for graph neural networks},
+  author={Duval, Alexandre and Malliaros, Fragkiskos D},
+  booktitle={Joint European Conference on Machine Learning and Knowledge Discovery in Databases (ECML PKDD)},
+  pages={302--318},
+  year={2021},
+  organization={Springer}
+}
+
+@article{covert2021explaining,
+  title={Explaining by removing: A unified framework for model explanation},
+  author={Covert, Ian and Lundberg, Scott and Lee, Su-In},
+  journal={Journal of Machine Learning Research},
+  volume={22},
+  number={209},
+  pages={1--90},
+  year={2021}
+}
+
+@inproceedings{ghorbani2020neuron,
+ author = {Ghorbani, Amirata and Zou, James},
+ booktitle = {Advances in Neural Information Processing Systems},
+ editor = {H. Larochelle and M. Ranzato and R. Hadsell and M.F. Balcan and H. Lin},
+ pages = {5922--5932},
+ publisher = {Curran Associates, Inc.},
+ title = {Neuron {Shapley}: Discovering the Responsible Neurons},
+ url = {https://proceedings.neurips.cc/paper_files/paper/2020/file/41c542dfe6e4fc3deb251d64cf6ed2e4-Paper.pdf},
+ volume = {33},
+ year = {2020}
+}
+
+@article{ancona2020shapleypruning,
+  title={Shapley value as principled metric for structured network pruning},
+  author={Ancona, Marco and {\"O}ztireli, Cengiz and Gross, Markus},
+  journal={arXiv preprint arXiv:2006.01795},
+  year={2020}
+}
+
+@article{doshivelez2017rigorous,
+  title={Towards a rigorous science of interpretable machine learning},
+  author={Doshi-Velez, Finale and Kim, Been},
+  journal={arXiv preprint arXiv:1702.08608},
+  year={2017}
+}
+
+@inproceedings{ribeiro2016trust,
+  title={``Why should {I} trust you?'': {E}xplaining the predictions of any classifier},
+  author={Ribeiro, Marco Tulio and Singh, Sameer and Guestrin, Carlos},
+  booktitle={Proceedings of the 22nd ACM SIGKDD International Conference on Knowledge Discovery and Data Mining},
+  pages={1135--1144},
+  year={2016}
+}
+
+% Added for the deletion-AUC faithfulness metric in Section 5 (the citation
+% there was empty). Deletion/insertion AUC curves originate in RISE.
+% TODO(authors): confirm this is the intended reference.
+@inproceedings{petsiuk2018rise,
+  title     = {{RISE}: Randomized Input Sampling for Explanation of Black-box Models},
+  author    = {Petsiuk, Vitali and Das, Abir and Saenko, Kate},
+  booktitle = {British Machine Vision Conference (BMVC)},
+  year      = {2018}
+}

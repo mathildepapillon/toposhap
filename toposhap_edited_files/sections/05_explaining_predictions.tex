@@ -1,0 +1,44 @@
+% 
+\section{Results I: Explaining Predictions with \method-cell}
+\label{sec:predictions}
+
+This section asks which cells a trained TNN relies on, considering benchmark explanation graph datasets, lifted topological versions of those datasets, as well as unlabeled standard topological datasets.
+
+\textbf{Setup.} We use four GraphXAI molecular benchmark data with ground truth explanations from \citet{agarwal2023graphxai}, four lifted topological benchmark data from TopoBench \citep{telyatnikov2024topobench}, and the MANTRA dataset \citep{ballester2025mantra}, a native simplicial complex dataset. All comparisons use identical splits and three seeds (mean $\pm$ sd).  Explanation accuracy is Graph Explanation Accuracy (GEA), the Jaccard overlap between a size-$b$ explanation and a same-size ground-truth motif \citep{agarwal2023graphxai}. In cases where no ground truth is available, we measure explanation faithfulness using deletion-Area-Under-the-Curve \citep[deletion-AUC;][]{petsiuk2018rise}. To compute it, cells are detached cumulatively from most to least important and the predicted-class probability is integrated over the removal process. A faithful ranking collapses the prediction quickly, so lower is better (formula in \cref{app:cell-intervention}). Lastly, the \emph{alignment gap} $\Delta = v(\hat{S}_{b}) - v(S_{\mathrm{gt}})$ compares the greedy candidate $\hat{S}_{b}$ to the annotated ground truth motif $S_{\mathrm{gt}}$. A positive $\Delta$ occurs when a same-size coalition scored above the annotated motif, indicating that the annotation is in fact not the game's optimum on that instance. Datasets and training details are in \cref{app:setup}; evaluation settings in \cref{app:cell-results}.
+
+\subsection{\method-cell on Graphs Matches GNN Explainers for Cheap}
+\label{sec:predictions-rank1}
+
+\input{tables/t1_graph}
+
+\expclaim{\method-cell matches within $1\sigma$ or outperforms every baseline.} In \cref{tab:graph-benchmarks}, all methods explain the same parameter-matched models of two types: GCN \citep{kipf2017semisupervised} and GIN \citep{xu2018how}. The table shows each method's better model-type. Per-model-type results are in \cref{tab:by-subject}. We evaluate both outputs by their overlap with the annotated motif (the ground truth): attribution selects the $b$ highest-scoring nodes, while greedy pruning retains a size-$b$ set through successive removals. Greedy pruning achieves higher motif overlap on Benzene with GIN; attribution-based selection performs better on Mutagenicity and Alkane-Carbonyl for both model types.
+
+% Per-model-type results are in \cref{tab:by-subject}. \method-cell's two outputs, cell-specific attribution scores and multi-cell explanations, play complementary roles. When there exists a sufficient explanation suffices by itself, \method-cell's explanation search finds it (Benzene); when instead it is individual cells that carry the largest measured contributions across coalitions, attribution ranks them on top (Mutagenicity, Alkane-Carbonyl). % PGExplainer keeps the best mean on Fluoride-Carbonyl, within one standard deviation of ours.
+
+\expclaim{\method's explanation output is 64--112$\times$ cheaper per instance than search-based explanation.} The explanation output takes 0.33--0.67\,s per instance and the attribution output 3.3--4.0\,s, against 21--52\,s for its graph counterpart SubgraphX  (\cref{tab:graph-benchmarks}). PGExplainer has a costly training setup: for computing explanations it exceeds \method's cost on every dataset (\cref{tab:runtime}). % The headline multiple compares SubgraphX to the explanation output, its like-for-like search competitor
+
+\subsection{\method-cell on Higher-Order Data Recovers Explanations}
+\label{sec:predictions-lifted}
+\label{sec:predictions-higher}
+
+We consider the rank-2 GCCN containing all eleven possible neighborhoods. We lift the GraphXAI datasets conventionally by converting chordless cycles of up to 10 nodes to a face (\cref{app:datasets}).
+
+\expclaim{Standard lifting preserves aggregated node information.}
+The standard lifting assigns face features using the sum of their incident nodes' features. In \method-cell, because retained cells keep their original features during masking, this summary information remains available regardless of node or edge masking. We find that selected coalitions sometimes retain faces while discarding edges (Benzene, \cref{app:lifting-diagnostics}), suggesting some models use these summaries. The selected coalitions also outscore the annotated motifs on most evaluated instances ($\Delta > 0$; \cref{tab:lifted}), showing that motif recovery and the model's preferences under masking can diverge.
+
+\expclaim{Constant higher-rank features improve motif recovery
+on three of four datasets.}
+Building on our finding of summary information caching structural information, we devise a new lifting where every higher-rank feature is instead the same constant all-ones vector. Under this ``structure-only'' lifting, greedy explanations achieve higher mean GEA on three datasets and attribution results are mixed (\cref{tab:lifted}). Mean predictive accuracy also increases on three datasets. We consider models trained on Benzene as a specific example. Moving from standard to structure-only lifting increases face retention from $0.84 \pm 0.14$ to $0.95 \pm 0.05$ and boundary-edge recovery from $0.40 \pm 0.14$ to $0.86 \pm 0.06$
+(\cref{app:lifting-diagnostics}). Thus, explanations more often retain both the face and its boundary. More broadly, these findings support the importance of feature lifting
+for explanation recovery. %
+
+\input{tables/t2_lifted}
+
+\subsection{\method-cell Is the Most Faithful Explainer Without Annotations}
+\label{sec:predictions-nogt}
+
+\expclaim{\method-cell beats occlusion, gradient-times-input, and random on every unannotated dataset.} Here we apply \method-cell to benchmark topological datasets hosted in TopoBench \citep{telyatnikov2024topobench}. Because there is no ground truth annotation, we score explanations against the model's own prediction by deletion-AUC (\cref{tab:nogt}; protocol in \cref{app:faithfulness}). We hypothesize that \method outperforms other baselines by attributing cells across coalitions rather than in isolation.
+
+\expclaim{Rank-specific attributions help explain models'
+prediction strategies.}
+Here, we consider MANTRA \citep{ballester2025mantra}, the natively topological dataset, and its orientability classification task. HOPSE performs best overall (AUROC 0.93), followed by GCCN (0.79) and the published TopoBench baseline (0.52). However, when we restrict evaluation to surfaces with matched cell counts, GCCN falls to near chance (0.51), while HOPSE retains 0.79. Thus, HOPSE can distinguish orientability using information beyond the numbers of nodes, edges, and triangles (protocol in \cref{app:mantra}).  Cell attributions help interpret this difference. Consider an orientable torus and a non-orientable Klein bottle with identical cell counts (\cref{fig:app-mantra}). Attributions show GCCN leverages triangles, but fails to distinguish triangles of orientable and the non-orientable surfaces. HOPSE instead concentrates its credit on nodes and edges, but successfully assigns attributions of opposite sign. We hypothesize that HOPSE succeeds because its spectral encodings provide global information about the complex's topology. Giving GCCN access to these encodings supports the hypothesis: with Hodge Laplacian eigenvectors concatenated to its input features, GCCN reaches a balanced accuracy of 0.88, exceeding HOPSE's 0.79 (\cref{tab:mantra-features}). This is an example of how \method-cell can shed light on models' inner workings and help design better TNNs for specific tasks.

@@ -1,0 +1,98 @@
+%======================================================================
+% Section 3 -- Preliminaries (~1 page budget)
+% Say "neighborhoods", never "relations", for message-passing routes.
+% ======================================================================
+\section{Preliminaries}
+\label{sec:preliminaries}
+
+\method relies on three components: (i) \textit{the data}, combinatorial complexes (\cref{sec:prelim-cc}), whose
+cells are the players of the cell game, (ii) \textit{the models}, topological neural networks (TNNs) specified by a set of neighborhoods (\cref{sec:prelim-gccn}), whose neighborhoods
+are the players of the neighbor game, and (iii) \textit{the game-theoretic machinery}, Shapley values (\cref{sec:prelim-shapley}).
+
+\subsection{Combinatorial Complexes and Their Cells}
+\label{sec:prelim-cc}
+
+Combinatorial complexes are discrete topological domains that generalize graphs, as follows.
+
+\begin{definition}[Combinatorial complex and cells \citep{hajij2023tdl}]
+\label{def:cc}
+A \emph{combinatorial complex} is a triple $\mathcal{C}=(V, \mathcal{X}, \rk)$ where
+$V$ is a finite set of nodes, $\mathcal{X} \subseteq
+2^{V}\setminus\{\emptyset\}$ is a set of \emph{cells}, and $\rk :
+\mathcal{X} \to \mathbb{Z}_{\ge 0}$ is a rank function monotone with
+respect to inclusion: $x \subseteq y \implies \rk(x) \le \rk(y)$.
+\end{definition}
+
+\textit{Cells} are the building blocks of the combinatorial complex (depicted in \cref{fig:overview}, top left). Cells of rank $0$, $1$ and $2$ are called nodes (depicted in blue), edges (depicted in pink) and faces (depicted in burgundy), respectively. Cells of higher ranks represent higher multi-way interactions between nodes. Graphs and hypergraphs are special cases of combinatorial complexes, where all cells have rank $\leq 1$. Other higher order domains used in TDL are also special cases, such as simplicial complexes, whose rank-2 cells are triangles and whose cells are closed under taking subsets, and cellular complexes, whose faces may be arbitrary polygons. Combinatorial complexes generalize them all \citep{hajij2023tdl}, which is why we define \method on them.
+
+Raw data is often provided in graph format. A topological \emph{lifting} converts a graph into a higher order domain by promoting substructures of nodes to higher-order cells. For example a cycle of nodes in a graph can be defined as a face in a cellular complex \citep{bodnar2021cwn}. Of the datasets we use, only MANTRA
+\citep{ballester2025mantra} is natively defined on a higher order domain, namely the simplicial complex. We lift the other (graph) datasets we use to the cellular complex domain using liftings available in TopoBench \citep{telyatnikov2024topobench}. We will see that the choice of lifting
+impacts both accuracy and explanation quality
+(\cref{sec:predictions}).
+
+\subsection{Topological Neural Networks and Their Neighborhoods}
+\label{sec:prelim-gccn}
+
+TNNs generalize GNNs to consider higher order domains. Here, we specifically consider the combinatorial complex for its generality, encompassing graph, hypergraphs, simplicial/cell complexes, and more. A TNN architecture is specified by a set of \emph{neighborhoods}, the relationships through which cells interact on the combinatorial complex. We first define neighborhoods formally, then provide preliminaries for the two model families we use in experiments: GCCNs, which pass messages along the chosen neighborhoods, and HOPSE, which encodes them without message passing.
+
+\begin{definition}[Neighborhood \citep{hajij2023tdl,hopse2025}]
+\label{def:neighborhood}
+A neighborhood on a combinatorial complex $\mathcal{C}=(V,\mathcal{X},\rk)$ is a function $N : \mathcal{X} \to 2^{\mathcal{X}}$ assigning to each cell $x$ a set $N(x)$ of cells, its neighbors. The standard neighborhoods are indexed by ranks. For a cell $x$ of rank $t$ and a rank $s \neq t$, the \emph{incidence}
+\begin{equation*}
+I_{s \to t}(x) \;=\; \{\, y \in \mathcal{X} \mid \rk(y) = s,\; x \subsetneq y \text{ or } y \subsetneq x \,\}
+\end{equation*}
+collects the rank-$s$ cells that contain $x$ (when $s > t$) or are contained in $x$ (when $s < t$), and the \emph{adjacency}
+\begin{equation*}
+A_{t,s}(x) \;=\; \{\, y \in \mathcal{X}\setminus\{x\} \mid \rk(y) = t,\; I_{s \to t}(x) \cap I_{s \to t}(y) \neq \emptyset \,\}
+\end{equation*}
+collects the rank-$t$ cells that share a rank-$s$ incident cell with $x$. %, called an \emph{up-adjacency} when $s > t$ and a \emph{down-adjacency} when $s < t$.
+\end{definition}
+
+Intuitively, neighborhoods are the routes along which cells exchange information. Incidences connect cells of different ranks, \eg $I_{1 \to 0}$ links each node to the edges containing it; adjacencies connect cells of the same rank through a shared cell, \eg $A_{0,1}$ links nodes joined by an edge. In practice each neighborhood is stored as a sparse matrix over cells. %, which is what our cell game recomputes when cells are detached (\cref{sec:framework}).
+
+ Given a set $\mathcal{N} = \{N_1, \dots, N_m\}$ of neighborhoods, each $N \in \mathcal{N}$ decomposes $\mathcal{C}$ into an ordinary graph on cells, the \emph{strictly augmented Hasse graph} $\mathcal{G}_N$, where cells participating in the neighborhood are nodes and the relationships of the neighborhood are edges \citep{papillon2025topotune}. With this formulation, the combinatorial complex $\mathcal{C}$ can be represented as a collection of smaller graphs, one per neighborhood. Both TNN families we use are built directly on this collection. 
+ Because both models represent each neighborhood as an architectural component, removing a neighborhood from $\mathcal{N}$ is a well defined operation on the model. %, which can ; this is the operation our neighbor game scores (\cref{sec:performance}).
+ 
+\begin{definition}[Generalized combinatorial complex network (GCCN) \citep{papillon2025topotune}]
+\label{def:gccn}
+A GCCN stacks $L$ message-passing layers over the strictly augmented Hasse graphs $\{\mathcal{G}_N\}_{N \in \mathcal{N}}$. At layer $\ell$, every cell $x$ exchanges a message with its neighbors along each graph $\mathcal{G}_N$, using a GNN layer $\psi_N$ dedicated to that neighborhood; the messages arriving from a single neighborhood are pooled together, and the results are then pooled once more across neighborhoods to update $x$'s feature:
+\begin{equation}
+\label{eq:gccn-layer}
+\mathbf{h}^{(\ell+1)}_x
+  \;=\;
+  \phi\!\Bigl(\mathbf{h}^{(\ell)}_x,\;
+  \bigotimes_{N \in \mathcal{N}}\;
+  \bigoplus_{y \in N(x)}
+  \psi_{N}\bigl(\mathbf{h}^{(\ell)}_x, \mathbf{h}^{(\ell)}_y\bigr)\Bigr).
+\end{equation}
+\end{definition}
+ 
+\begin{definition}[Higher-Order Positional and Structural Encoder (HOPSE) \citep{hopse2025}]
+\label{def:hopse}
+HOPSE replaces every GNN layer $\psi_N$ with a fixed positional or structural encoder, such as Laplacian eigenvectors, computed once on the strictly augmented Hasse graph $\mathcal{G}_N$ rather than learned during training. For every cell $x$, HOPSE collects the encodings $x$ receives this way from each of its Hasse graphs, concatenates them with $x$'s own input feature, and passes the result through a small learnable network, shared across cells of the same rank, to produce $x$'s final feature. %
+\end{definition}
+
+\subsection{Measuring a Contribution to a Game: Shapley Values and Interactions}
+\label{sec:prelim-shapley}
+
+A \emph{cooperative game} $(P, v)$ consists of players $P$, $|P| = n$, and a
+value function $v : 2^{P} \to \mathbb{R}$ with $v(\emptyset) = 0$, where $v(S)$
+is the gain that the \emph{coalition} $S \subseteq P$ secures on its own. The
+question is how to divide the total gain $v(P)$ among the $n$ players.
+
+The \emph{Shapley value}
+\citep{shapley1953value} of player $i$ averages its marginal
+contribution over all coalitions:
+\begin{equation}
+\label{eq:shapley}
+\phi_i(v) \;=\; \sum_{S \subseteq P \setminus \{i\}}
+  \frac{|S|!\,(n - |S| - 1)!}{n!}
+  \bigl[v(S \cup \{i\}) - v(S)\bigr].
+\end{equation}
+It is the unique attribution satisfying four desirable axioms: (i) \emph{efficiency}, i.e., attributions credit
+the total gain exactly, $\sum_i \phi_i = v(P)$, (ii) \emph{symmetry} where $\phi_i = \phi_j$
+whenever $v(S \cup \{i\}) = v(S \cup \{j\})$ for all $S$, (iii) \emph{null player}
+where $\phi_i = 0$
+whenever $v(S \cup \{i\}) = v(S)$ for all $S$, and (iv) \emph{linearity} which makes credit
+additive across games, $\phi_i(v + w) = \phi_i(v) + \phi_i(w)$. These axioms
+explain the adoption of Shapley values in explainable machine learning. For this reason, this is the attribution that we will use in \method.

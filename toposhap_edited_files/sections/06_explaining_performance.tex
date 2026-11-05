@@ -1,0 +1,65 @@
+\section{Results II: Explaining Performance with \method-neighbor}
+\label{sec:performance}
+
+\subsection{Architecture Selection in Practice}
+\label{sec:performance-selection}
+
+\method-neighbor reduces total training compute by a factor of 4.5--11.3 relative to the evaluated architecture sweeps. The resulting accuracy--compute trade-off varies by dataset, as shown in \cref{fig:lead,tab:performance-summary}. We evaluate GCCN and HOPSE across 11 datasets against their respective reported architecture search grids \citep{papillon2025topotune,hopse2025}. Our pipeline uses a five-epoch full model to select $B=2$ smaller architectures, completes the training of these smaller architectures, and selects one by validation accuracy. Reported costs include search, candidate training, and preprocessing (\cref{app:flops-conventions}). Controls using the same initialization and continuation settings compare elimination with a random two-candidate shortlist and the full-model default (\cref{tab:shortlist-baselines}). We find that elimination generally improves mean accuracy.
+
+\begin{figure}[!t]
+  \centering
+  \includegraphics[width=\linewidth]{figures/lead_combined_anchored.pdf}
+  \vspace{-8mm}
+  \caption{\textbf{Architecture selection: accuracy versus total compute.} Dark markers denote \method-neighbor; pale markers denote each family's validation-selected sweep winner, charged for the full sweep. Error bars show standard deviation over five seeds for GCCN $B=2$ and three otherwise. Due to its practical costs, HOPSE sweeps are limited to complex-level datasets and we avoid training any HOPSE models on Pubmed. MANTRA uses balanced test accuracy.}
+  \label{fig:lead}
+\end{figure}
+
+ % MANTRA highlights the importance of the selection metric: in a supplementary three-seed GCCN run, replacing ordinary validation accuracy with balanced accuracy raises balanced test accuracy from $0.615\pm0.103$ to $0.804\pm0.011$ (\cref{app:selection}). This supports a metric-mismatch explanation for the original run's poor performance on this imbalanced dataset.
+
+\subsection{Controlled Evaluation with Exhaustive Training}
+\label{sec:performance-controlled}
+
+We separately train all $2^6=64$ subsets of six neighborhoods across twelve GCCN dataset/hyperparameter settings and three seeds (\cref{app:benchmark}). This exhaustive retraining allows us to compute the neighborhoods' Shapley values from separately trained coalitions and compare them with attributions from the masked five-epoch model; the selection pipeline of \cref{sec:performance-selection} itself never consumes attributions, scoring candidate removals directly by masked coalition accuracy.
+
+\paragraph{Masked attributions describe reliance in the trained model.}
+Masked-model and retrained-model Shapley values show weak pooled agreement ($\rho=0.23$), rising to $0.32$ when masking is scored by accuracy rather than logits (\cref{tab:attr-agreement}). Masking uses validation data, whereas retraining is scored by test accuracy or negative MAE, so this comparison also reflects differences in data and scoring (\cref{app:attr-agreement}). The results caution against interpreting fixed-model attributions as necessity after retraining. %; our selector instead evaluates candidate removals directly.
+
+\paragraph{Backward elimination generates competitive candidates in an oracle analysis.}
+We score removals using the separately trained coalitions' seed-averaged test performance. On five held-out settings across four datasets, the cheap greedy architecture selection (outlined in \cref{sec:framework-game2}) contains the exhaustive benchmark's best architecture in four settings (\cref{tab:oracle-generation}). This is encouraging evidence that our pipeline can construct competitive candidate sequences (\cref{app:selection-evidence}).
+
+
+%. Because this analysis uses test scores, it evaluates candidate generation with retrained coalition values, rather than the practical masked-selection pipeline.
+
+% \section{Results II: Explaining Performance with \method-neighbor}
+% \label{sec:performance}
+
+% % We first evaluate the accuracy and computational cost of the architecture-selection procedure from \cref{sec:framework-game2}, comparing it to traditional search space costs. We then use a separate exhaustive six-neighborhood benchmark to examine whether attributions predict usefulness after retraining and whether backward elimination generates competitive candidates.
+
+% \subsection{Architecture Selection in Practice}
+% \label{sec:performance-selection}
+
+% We evaluate the practical pipeline across 11 datasets, comparing selected GCCN and HOPSE architectures with the best models from their respective architecture sweeps. The sweeps follow each family's published search practice, a TopoTune-style neighborhood grid for GCCN \citep{papillon2025topotune} and the HOPSE configuration grid \citep{hopse2025}, meaning they represent the baseline search cost of TDL. In contrast, the \method-neighbor pipeline cheaply evaluates neighbor contributions in a briefly trained full model, then trains $B=2$ candidates to completion and selects by validation accuracy. \Cref{fig:lead,tab:performance-summary} report predictive performance and total compute, including search and candidate training, under standard FLOP accounting (\cref{app:flops-conventions}).
+
+% \begin{figure}[!t]
+%   \centering
+%   \includegraphics[width=\linewidth]{figures/lead_combined_anchored.pdf}
+%   \caption{\textbf{Architecture selection versus each family's sweep.} Test accuracy versus total training compute (FLOPs). Dark markers show architectures selected by \method-neighbor; pale markers show the best-of-sweep architectures, with compute including the full sweep. Error bars denote standard deviation across seeds (five for GCCNs, three otherwise). The HOPSE sweep covers the complex-level datasets (first and second rows); on Pubmed, HOPSE preprocessing does not complete at practical cost. MANTRA scores use balanced accuracy.}
+%   \label{fig:lead}
+% \end{figure}
+
+% At this $B=2$ budget, \method-neighbor is 4.5--11.6$\times$ cheaper than the corresponding sweep. Compared within its own family, each selection arm concedes at most 0.021 accuracy to that family's sweep (GCCN on Cora; HOPSE on MANTRA; \cref{tab:performance-summary}). As a descriptive summary across families, taking each dataset's better arm by test mean, selection matches or exceeds the best sweep within one sweep seed standard deviation on 8 of 11 datasets; this summary is not a deployable rule, and on Cora and Citeseer no HOPSE sweep exists to compare against. Of the underperforming cases, the largest accuracy deficits occur on MANTRA and Alkane-Carbonyl. On MANTRA, selection uses ordinary validation accuracy, which can favor majority-class predictors, whereas the reported balanced accuracy weights both classes equally; a supplementary rerun that selects on balanced validation accuracy instead reaches 0.804 $\pm$ 0.011 balanced test accuracy on the shared seeds, against 0.615 $\pm$ 0.103 for the frozen plain-accuracy run (\cref{app:selection}), confirming the metric mismatch as the mechanism. On Alkane-Carbonyl the exhaustive benchmark of \cref{sec:performance-controlled} shows that the neighborhoods barely matter: a model trained with no neighborhoods at all matches the full model exactly (\cref{tab:benchmark-summary}).
+
+% Two compute-matched controls isolate the candidate generator's contribution (\cref{tab:shortlist-baselines}): replacing the elimination walk with two uniformly random architectures from the same brief stem is worse on 9 of 11 datasets, and the no-search full-vocabulary default is worse on 8 of 11; the exceptions sit where the exhaustive benchmark shows neighborhoods barely matter (Alkane-Carbonyl) or where plain-accuracy selection is itself the weakness (MANTRA).
+
+% Scoring coalitions by retraining a model for every evaluation, instead of masking a briefly trained one, would cost 4.7--28.1 sweep-equivalents; that pre-registered pricing claim was refuted, so all search costs above rest on the masked game (\cref{app:accounting}). \Cref{tab:performance-summary} details the resulting accuracy--compute trade-offs.
+
+% \subsection{Controlled Evaluation with Exhaustive Training}
+% \label{sec:performance-controlled}
+
+% To examine attribution and candidate generation separately, we consider a subset of $n=6$ possible neighborhoods and train architectures from scratch on all $2^n=64$ coalitions in this set. We consider GCCN models trained under twelve dataset/hyperparameter settings and three seeds (\cref{app:benchmark}). While more costly than the practical approach of \cref{sec:performance-selection}, this benchmark provides retraining-game attributions, an explicitly defined reference (a different game on different data, rather than a unique ground truth), and thus answers two questions.
+
+% \paragraph{Do \method-neighbor's cheap attributions correlate with attributions from retraining?}
+% We compare exact Shapley values over the same six neighborhoods of i) masked evaluations of \cref{sec:performance-selection} and ii) retrained coalitions. The primary comparison uses validation logits for masking and test accuracy or negative MAE for retraining. \Cref{tab:attr-agreement} shows that agreement varies substantially across settings and is weak when pooled ($\rho = +0.23$); scoring the masked side by validation accuracy instead of logits raises it only modestly ($\rho = +0.32$, dataset-block 95\% CI $[0.06, 0.61]$). The two games also differ in split (validation versus test), a mismatch the frozen record does not allow us to remove; \cref{app:attr-agreement} reports both scorings. For example, on Benzene, the node-adjacency neighborhood is substantially more important under seed 43 than under seeds 42 and 44, while its retraining attribution is comparatively stable (\cref{fig:substitute-commitment}). Models trained without this neighborhood also achieve performance close to that of the full architecture (\cref{app:selection-commitment}). This illustrates why attributions in a particular trained model do not imply necessity after retraining.
+
+% \paragraph{Does backward elimination generate strong candidates?}
+% We apply the backward elimination procedure from \cref{sec:framework-game2}, now scoring each removal on the benchmark's recorded seed-averaged test-metric values. This is an oracle diagnostic of the candidate generator: it isolates generation from the masking approximation, and it is not a deployable selection because it consults test performance. Evaluated on five held-out settings across four datasets (the two ZINC recipes count separately), the candidate sequence contains the benchmark's best architecture in four of the five (worst regret +0.007; \cref{app:selection-evidence}). Thus, backward elimination can identify competitive candidates when trained coalition performance is available.

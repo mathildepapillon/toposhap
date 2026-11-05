@@ -1,0 +1,188 @@
+\documentclass{article} % For LaTeX2e
+\usepackage{iclr2027_conference,times}
+\input{preamble}
+\input{results_macros}
+% Optional math commands from https://github.com/goodfeli/dlbook_notation.
+\input{math_commands.tex}
+
+\usepackage{hyperref}
+\usepackage{url}
+\usepackage{enumitem}
+
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage{amsmath}
+\usepackage{tabularx}
+
+\title{TopoSHAP: Shapley for 
+  Explainable \\ and Efficient Topological Deep Learning}
+
+% Author block. It is only typeset when \iclrfinalcopy (below) is active;
+% otherwise the style prints "Anonymous authors" in its place.
+
+\author{Mathilde Papillon \\
+Department of Physics\\
+University of California, Santa Barbara\\
+\texttt{papillon@ucsb.edu}
+\And
+Nina Miolane \\
+Department of Electrical and Computer Engineering\\
+University of California, Santa Barbara\\
+}
+
+% The \author macro works with any number of authors. There are two commands
+% used to separate the names and addresses of multiple authors: \And and \AND.
+%
+% Using \And between authors leaves it to \LaTeX{} to determine where to break
+% the lines. Using \AND forces a linebreak at that point. So, if \LaTeX{}
+% puts 3 of 4 authors names on the first line, and the last on the second
+% line, try using \AND instead of \And before the third author name.
+
+\newcommand{\fix}{\marginpar{FIX}}
+\newcommand{\new}{\marginpar{NEW}}
+
+% ----- preprint mode ---------------------------------------------------
+% \iclrfinalcopy shows the author block and removes the margin line ruler.
+% The running head it sets ("Published as a conference paper at ICLR 2027")
+% is replaced by the \lhead right after \maketitle below.
+% To rebuild the anonymous submission version, comment out \iclrfinalcopy
+% and the \lhead line.
+\iclrfinalcopy
+\begin{document}
+
+\maketitle
+\lhead{ } % preprint running head on every page
+\begin{abstract}
+Topological deep learning (TDL) extends learning on graphs, such as molecules or social networks, to higher-order structures, such as rings in a molecule or groups in a social network. Explaining which of these structures drive a model's predictions, and which architectural components matter most for its performance, remains challenging. We introduce TopoSHAP, an efficient and general explanation framework that addresses both questions across topological domains and model architectures. TopoSHAP-cell assigns Shapley values to topological data cells and extracts compact explanations. These explanations match or outperform graph-based counterparts on GraphXAI benchmark data while running up to 112$\times$ faster. They also reveal advantageous topological feature design, leading to measured improvements in explanation recovery and predictive accuracy. On the architecture side, TopoSHAP-neighbor explains how neighborhoods contribute to model performance, and turns these evaluations into a backward-elimination search that identifies smaller, competitive architectures early in training. This is up to $11.3\times$ cheaper than traditional TDL training sweeps.\end{abstract}
+
+\input{sections/01_introduction}
+\input{sections/02_related_work}
+\input{sections/03_preliminaries}
+\input{sections/04_framework}
+\input{sections/05_explaining_predictions}
+\input{sections/06_explaining_performance}
+\input{sections/08_limitations}
+\input{sections/09_conclusion}
+
+% ----- acknowledgments ---------------------------------------------------
+% TODO(Nina): add funding sources (grant numbers) and any compute credits.
+\subsection*{Acknowledgments}
+[Funding and compute acknowledgments to be added.]
+
+% ----- required/recommended statements (do not count toward page limit)
+% TODO(researcher): review wording of both statements before submission.
+\subsection*{AI use statement}
+
+In this work, we used generative AI tools to assist with implementing and debugging the proposed methods, running experiments, and drafting initial versions of portions of the manuscript. We also used generative AI tools to assist with summarizing existing literature; all cited literature and associated claims were independently reviewed by the authors. AI tools were not used to conceptualize the project, develop its core research ideas or methodology or interpret the experimental results. All datasets used in this work were publicly available prior to this study and were not generated using AI. AI-assisted code was reviewed, modified, and tested by the authors, and all experimental results and analyses were independently verified by the authors. The authors wrote a substantial portion of the main text and heavily revised and edited all AI-assisted text. Appendix text is a more equal combination of author and AI written text. We take full responsibility for the final content of the paper, including all claims, analyses, code, and artifacts.
+
+\subsection*{Reproducibility statement}
+Datasets, splits, and all model, training, and explainer settings are specified in \cref{app:setup}; evaluation protocols and full results in \cref{app:cell-results,app:neighbor-results}; the software environment in \cref{app:repro}. The implementation is made available at \href{https://github.com/mathildepapillon/toposhap}{github.com/mathildepapillon/toposhap}.
+
+% ----- bibliography ----------------------------------------------------
+% TODO: switch to the official iclr2027_conference.bst when released.
+\bibliographystyle{plainnat}
+\bibliography{references}
+
+\clearpage
+\appendix
+\input{sections/appendix_a_method}
+\input{sections/appendix_b_setup}
+\input{sections/appendix_c_cell}
+\input{sections/appendix_d_neighbor}
+\input{sections/appendix_e_repro}
+
+\end{document}
+
+% \documentclass{article} % For LaTeX2e
+% \usepackage{iclr2027_conference,times}
+% \input{preamble}
+% \input{results_macros}
+% % Optional math commands from https://github.com/goodfeli/dlbook_notation.
+% \input{math_commands.tex}
+
+% \usepackage{hyperref}
+% \usepackage{url}
+% \usepackage{enumitem}
+
+% \usepackage{algorithm}
+% \usepackage{algpseudocode}
+% \usepackage{amsmath}
+% \usepackage{tabularx}
+
+% \title{TopoSHAP: Shapley for 
+%   Explainable \\ and Efficient Topological Deep Learning}
+
+% % Authors must not appear in the submitted version. They should be hidden
+% % as long as the \iclrfinalcopy macro remains commented out below.
+% % Non-anonymous submissions will be rejected without review.
+
+% \author{Antiquus S.~Hippocampus, Natalia Cerebro \& Amelie P. Amygdale \thanks{ Use footnote for providing further information
+% about author (webpage, alternative address)---\emph{not} for acknowledging
+% funding agencies.  Funding acknowledgements go at the end of the paper.} \\
+% Department of Computer Science\\
+% Cranberry-Lemon University\\
+% Pittsburgh, PA 15213, USA \\
+% \texttt{\{hippo,brain,jen\}@cs.cranberry-lemon.edu} \\
+% \And
+% Ji Q. Ren \& Yevgeny LeNet \\
+% Department of Computational Neuroscience \\
+% University of the Witwatersrand \\
+% Joburg, South Africa \\
+% \texttt{\{robot,net\}@wits.ac.za} \\
+% \AND
+% Coauthor \\
+% Affiliation \\
+% Address \\
+% \texttt{email}
+% }
+
+% % The \author macro works with any number of authors. There are two commands
+% % used to separate the names and addresses of multiple authors: \And and \AND.
+% %
+% % Using \And between authors leaves it to \LaTeX{} to determine where to break
+% % the lines. Using \AND forces a linebreak at that point. So, if \LaTeX{}
+% % puts 3 of 4 authors names on the first line, and the last on the second
+% % line, try using \AND instead of \And before the third author name.
+
+% \newcommand{\fix}{\marginpar{FIX}}
+% \newcommand{\new}{\marginpar{NEW}}
+
+% %\iclrfinalcopy % Uncomment for camera-ready version, but NOT for submission.
+% \begin{document}
+
+% \maketitle
+% \begin{abstract}
+% Topological deep learning (TDL) extends learning on graphs, such as molecules or social networks, to higher-order structures, such as rings in a molecule or groups in a social network. Explaining which of these structures drive a model's predictions, and which architectural components matter most for its performance, remains challenging. We introduce TopoSHAP, an efficient and general explanation framework that addresses both questions across topological domains and model architectures. TopoSHAP-cell assigns Shapley values to topological data cells and extracts compact explanations. These explanations match or outperform graph-based counterparts on GraphXAI benchmark data while running up to 112$\times$ faster. They also reveal advantageous topological feature design, leading to measured improvements in explanation recovery and predictive accuracy. On the architecture side, TopoSHAP-neighbor explains how neighborhoods contribute to model performance, and turns these evaluations into a backward-elimination search that identifies smaller, competitive architectures early in training. This is up to $11.3\times$ cheaper than traditional TDL training sweeps.\end{abstract}
+
+% \input{sections/01_introduction}
+% \input{sections/02_related_work}
+% \input{sections/03_preliminaries}
+% \input{sections/04_framework}
+% \input{sections/05_explaining_predictions}
+% \input{sections/06_explaining_performance}
+% \input{sections/08_limitations}
+% \input{sections/09_conclusion}
+
+% % ----- required/recommended statements (do not count toward page limit)
+% % TODO(researcher): review wording of both statements before submission.
+% \subsection*{AI use statement}
+
+% In this work, we used generative AI tools to assist with implementing and debugging the proposed methods, running experiments, and drafting initial versions of portions of the manuscript. We also used generative AI tools to assist with summarizing existing literature; all cited literature and associated claims were independently reviewed by the authors. AI tools were not used to conceptualize the project, develop its core research ideas or methodology or interpret the experimental results. All datasets used in this work were publicly available prior to this study and were not generated using AI. AI-assisted code was reviewed, modified, and tested by the authors, and all experimental results and analyses were independently verified by the authors. The authors wrote a substantial portion of the main text and heavily revised and edited all AI-assisted text. Appendix text a more equal combination of author and AI written text. We take full responsibility for the final content of the paper, including all claims, analyses, code, and artifacts.
+
+% \subsection*{Reproducibility statement}
+% Datasets, splits, and all model, training, and explainer settings are specified in \cref{app:setup}; evaluation protocols and full results in \cref{app:cell-results,app:neighbor-results}; the software environment in \cref{app:repro}. The implementation is made available at \href{https://anonymous.4open.science/r/toposhap-3C75}{anonymous.4open.science/r/toposhap-3C75}.
+
+% % ----- bibliography ----------------------------------------------------
+% % TODO: switch to the official iclr2027_conference.bst when released.
+% \bibliographystyle{plainnat}
+% \bibliography{references}
+
+% \clearpage
+% \appendix
+% \input{sections/appendix_a_method}
+% \input{sections/appendix_b_setup}
+% \input{sections/appendix_c_cell}
+% \input{sections/appendix_d_neighbor}
+% \input{sections/appendix_e_repro}
+
+% \end{document}

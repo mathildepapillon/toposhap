@@ -1,0 +1,144 @@
+% ======================================================================
+% Appendix D -- Additional results for TopoSHAP-neighbor
+% (order follows main Sections 6.1 and 6.2)
+% ======================================================================
+\section{Additional Results for \method-neighbor}
+\label{app:neighbor-results}
+
+\subsection{Architecture Selection, Baselines, and Compute}
+\label{app:selection}
+
+\input{tables/performance_summary}
+
+\textbf{Sweeps.} The GCCN sweep is a TopoTune-style neighborhood grid
+of 22--25 configurations per dataset: the saved record's per-dataset
+draws on the eight datasets it covered, and one fixed 23-configuration
+draw reused verbatim on the three datasets swept for this paper
+(per-dataset counts in \cref{fig:lead}'s legend; the configuration
+lists ship with the released pipeline). The HOPSE sweep is its
+published 12-configuration grid. Sweep winners are selected per seed
+by validation accuracy and charged the full grid.
+
+\input{tables/shortlist_baselines}
+
+\textbf{Shortlist controls.} Each control starts from the same
+five-epoch initial model and continues training under the standard
+settings of the selection pipeline. The random $B{=}2$ control draws
+two architectures uniformly at random from the 2047 non-empty
+neighborhood subsets (draw seeded by dataset and seed, redrawing
+duplicates), continues both, and selects between them by validation
+accuracy: two continuations, like the selection pipeline, but without
+backward elimination's 66 validation passes. The full-model default
+continues one model, the all-neighborhood architecture, with no search
+and no selection step.
+
+\textbf{Compute accounting.}
+\label{app:flops-conventions}
+All FLOPs are counted under one convention: PyTorch's
+\texttt{FlopCounterMode} with dense pricing, explicit formulas for
+operations the counter does not price (eigendecomposition, SVD, sparse
+products), and every stage charged, including HOPSE's encoding
+preprocessing. Runs that predate the profiler are priced by rebuilding
+the recorded architecture, profiling one training epoch and the
+evaluation passes under the same convention, and combining these
+per-epoch counts with the recorded epoch and evaluation tallies; we
+describe such costs as profiler-based reconstructions. Exact
+neighborhood attribution requires all $2^{11} = 2048$ masked
+validation passes; backward elimination requires $(n^{2}+n)/2 = 66$;
+sampled cell attribution requires at most $Tn + 1$ forward passes per
+instance, with $T$ counting every evaluated ordering
+(\cref{app:cell-intervention,tab:runtime}). Wall-clock comparisons run
+on one NVIDIA H200 GPU per run.
+
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=\linewidth]{figures/lead_combined_wall.pdf}
+  \caption{\textbf{Wall-clock variant of \cref{fig:lead}.} The same
+    four marker groups as \cref{fig:lead} (selected GCCN, selected
+    HOPSE, and each family's sweep), with the horizontal axis showing
+    measured wall-clock seconds (one NVIDIA H200 GPU per run) instead
+    of FLOPs. Wall-clock time includes HOPSE's preprocessing.}
+  \label{fig:app-lead-wall}
+\end{figure}
+
+\subsection{Sensitivity Analyses}
+\label{app:sensitivity}
+
+\textbf{Initial-training length.} \Cref{tab:stem-sensitivity} repeats
+the $B{=}2$ selection with the initial model trained for 3, 5
+(default), or 10 epochs. Mean selected test accuracy moves by at most
+0.012 on Benzene and NCI1 and by 0.036 on MUTAG; the selected
+neighborhood sets themselves differ across settings.
+
+\input{tables/stem_sensitivity}
+
+\textbf{Selection metric on MANTRA.} A separately run three-seed
+variant replaces ordinary validation accuracy with balanced validation
+accuracy in the masked game, the threshold's $p$, and the final
+comparison ($\tau$'s binomial form is then an approximation, since
+balanced accuracy is not a binomial proportion). It selects 11, 11,
+and 9 neighborhoods across seeds 42--44 and reaches $0.804 \pm 0.011$
+balanced test accuracy, against $0.615 \pm 0.103$ for the original
+plain-accuracy run on the same seeds, consistent with ordinary
+validation accuracy rewarding majority-class predictions on this
+imbalanced dataset. \Cref{fig:lead,tab:performance-summary} report the
+original plain-accuracy selection.
+
+\begin{figure}[p]
+  \centering
+  \includegraphics[width=0.96\linewidth]{figures/elimination_traces.pdf}
+  \caption{\textbf{Backward-elimination traces on all eleven
+    datasets.} Masked validation accuracy along the GCCN elimination
+    path, from eleven neighborhoods to one, for training seeds
+    42--46. Markers identify the stop candidate selected before the
+    first removal whose accuracy loss exceeds $\tau$; elimination
+    continues after this candidate is marked. All panels share one
+    $y$-axis span, positioned per panel. MANTRA uses ordinary
+    validation accuracy in this experiment.}
+  \label{fig:elimination-traces}
+\end{figure}
+
+\subsection{Exhaustive Benchmark and Attribution Agreement}
+\label{app:benchmark}
+
+The controlled evaluation of \cref{sec:performance-controlled} uses
+all $2^{6} = 64$ subsets of the first six neighborhoods of \cref{app:selection-pipeline}, each trained separately from scratch to the standard budget, under twelve dataset/hyperparameter settings and
+seeds 42--44; the empty subset is a trained model with node features only. The twelve settings are the four GraphXAI molecule datasets, MUTAG, NCI1, NCI109, the two ZINC configurations of
+\cref{app:training}, and the three citation graphs. Seven settings were available while the selection procedure was developed; five (MUTAG, NCI109, Alkane-Carbonyl, and the two ZINC configurations) were held out and first evaluated after the procedure was fixed.
+
+\label{app:attr-agreement}
+\Cref{tab:attr-agreement} compares exact Shapley attributions over the
+six neighborhoods computed two ways: from masked evaluations of the
+five-epoch model (the logit column scores validation logits, the
+primary comparison; the accuracy column re-scores the masked side by
+validation accuracy) and from the separately trained subsets' test
+values. Agreement is the Spearman correlation between seed-averaged
+attribution profiles; stability is the mean $\pm$ sd of the per-seed
+correlations, which mixes seed-to-seed variation of the masked profile
+into the same statistic and is reported separately for that reason.
+The pooled row correlates $12 \times 6 = 72$ points (one per setting
+and neighborhood, each a three-seed mean); intervals are 95\%
+bootstrap over the twelve setting blocks (10{,}000 resamples), and the
+primary statistic's permutation $p$ is $0.048$ (20{,}000
+permutations). The two games differ in split and score (validation
+logits or accuracy versus test accuracy or negative MAE), a mismatch
+the saved record does not allow us to remove.
+
+\input{tables/attr_agreement}
+
+\subsection{Oracle Evaluation of Candidate Generation}
+\label{app:selection-evidence}
+
+\Cref{tab:oracle-generation} reruns backward elimination with each
+removal scored by the benchmark's seed-averaged test values, per
+setting. Because it consults test scores, this analysis is an oracle
+diagnostic of the candidate generator; it is not a validation-only
+application of the practical method, and it does not validate the
+masked scores the practical pipeline uses. On the five held-out
+settings the greedy path contains the benchmark's best architecture in
+four, with worst regret $+0.0068$ (the GIN-backbone ZINC recipe); on
+the seven development settings it matches the best architecture's
+test value in five (on NCI1 with a size-5 subset rather than the
+size-3 optimum) and trails by at most $+0.0042$.
+
+\input{tables/oracle_generation}

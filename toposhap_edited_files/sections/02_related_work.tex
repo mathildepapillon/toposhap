@@ -1,0 +1,33 @@
+% ======================================================================
+% Section 2 -- Related Work (~0.5 page budget)
+% "neighborhoods", never "relations". No em dashes. Never a critique
+% of TDL.
+% ======================================================================
+\section{Related Work}
+\label{sec:related}
+
+\method builds on three lines of work: (i) topological deep learning, the
+subfield proposing the TNNs we explain; (ii) Shapley-value attribution in
+machine learning, the game-theoretic background we rely on; and (iii) GNN
+explainers, the methods we generalize. We review each below.
+
+\paragraph{Topological deep learning (TDL).}
+TDL proposes neural networks that learn from higher-order topological domains generalizing graphs, such as: simplicial complexes \citep{ebli2020simplicial}, cellular complexes \citep{bodnar2021cwn}, hypergraphs \citep{feng2019Hypergraph} and combinatorial complexes
+\citep{hajij2023tdl}.
+TopoTune \citep{papillon2025topotune} defines the architectural design space we study. Specifically, we consider Generalized Combinatorial Complex Neural Networks (GCCN) as they are general TNNs that are conveniently specified by the set of neighborhoods they each admit. We also consider the non-message passing version of GCCNs, introduced in HOPSE \citep{hopse2025}, which leverage graph embeddings. Our framework treats HOPSE and message-passing TNNs identically because it only requires forward evaluations. Regarding implementation, TopoBench \citep{telyatnikov2024topobench} standardizes liftings, models, and training across topological domains. We host our contribution and experiments there. 
+
+\paragraph{Shapley-value attribution in machine learning.} The Shapley value credits each player in a cooperative game with its average marginal contribution across coalitions, and is the unique such credit assignment satisfying a standard set of fairness axioms \citep{shapley1953value}.
+ %and is the unique attribution satisfying efficiency,
+% symmetry, null player, and linearity \citep{shapley1953value}. Two axioms carry
+% our results: efficiency makes per-cell credits sum to the prediction, and null
+% player gives zero credit to a cell the model never uses, which exposes TNNs
+% that ignore their higher-order structure (\cref{sec:predictions}). 
+SHAP brought this machinery to machine learning with input features as players \citep{lundberg2017shap}, and interaction indices extend credit to coalitions \citep{grabisch1999axiomatic}. In \method-cell, our players are the cells (node, edge, hyperedge, face, and so on) that make up the topological domain. Because exact values cost exponential time in the number of players,  larger complexes use unbiased permutation sampling \citep{castro2009polynomial,strumbelj2010efficient}. Shapley values are unsound for selecting players when two players can do the same job \citep{fryer2021shapley}. Our framework therefore uses the game only to order candidates, and compares the shortlisted candidates by validation of fully trained models (\cref{sec:framework-game2}).
+
+\paragraph{Explaining GNNs and Hypergraph Neural Networks.}
+Existing GNN explainers broadly fall into two families. The first family of explainers learns continuous masks over the graph's nodes and edges. GNNExplainer learns a new mask for each instance, requiring a new optimization run per prediction \citep{ying2019gnnexplainer}. PGExplainer trains a single mask-generating model once over the dataset, which then generalizes to new instances without further optimization \citep{luo2020parameterized}.
+Second, search-based explainers return discrete subgraphs scored by prediction preservation: SubgraphX explores connected subgraphs by Monte-Carlo tree search, scoring each with a sampled Shapley reward
+\citep{yuan2021subgraphx}, and Zorro greedily selects sparse masks with stability guarantees \citep{funke2023zorro}. GraphSVX \citep{duval2021graphsvx} and GraphSHAP-IQ
+\citep{muschalik2024graphshapiq} bring Shapley values and exact any-order Shapley interactions to GNNs, with nodes and features as players, and \citet{covert2021explaining} unify such methods by their choice of removal operator, model behavior, and summary. \method instantiates that framework with cells as players and detachment on the complex as the removal operator. Shapley values over internal model components also precede us in neuron attribution \citep{ghorbani2020neuron} and structured pruning \citep{ancona2020shapleypruning}. \method-neighbor differs by scoring architectural neighborhoods with masked validation accuracy and by never selecting on the Shapley ranking itself (\cref{sec:framework-game2}). All of the above operate on nodes, edges, features, or network units. 
+
+Beyond graphs, HyperEX explains hypergraph predictions through node--hyperedge associations \citep{maleki2023hyperex}, and SHypX returns explanatory subhypergraphs \citep{su2024shypx}. Because hypergraphs are simply rank-$\le 1$ combinatorial complexes, these approaches also do not handle cells across ranks. Counterfactual hypergraph explanations \citep{veglianti2026counterfactual} pursue prediction-changing edits, complementary to our prediction-preserving objective. FORGE \citep{sinha2025forge} lifts graphs to cell complexes before explaining, yet still outputs node-level attributions. \method instead defines games over cells across ranks of a combinatorial complex (of which graphs and hypergraphs are special cases) and over architectural neighborhoods. It is also the first to propose prediction attribution alongside validation-based architecture selection.
